@@ -50,8 +50,9 @@ const RequestCard = ({ userid, Departement }) => {
                 <img
                   src={
                     data?.coverPicture
-                      ? "http://localhost:5000/images/" + data?.coverPicture
-                      : "http://localhost:5000/images/defaultCover.jpg"
+                      ? "https://tlink-server.onrender.com/images/" +
+                        data?.coverPicture
+                      : "https://tlink-server.onrender.com/images/defaultCover.jpg"
                   }
                   className="img-fluid bg-cover w-100"
                   style={{ height: "250px" }}
@@ -64,8 +65,9 @@ const RequestCard = ({ userid, Departement }) => {
                 <img
                   src={
                     data?.profilePicture
-                      ? "http://localhost:5000/images/" + data?.profilePicture
-                      : " http://localhost:5000/images/defaultProfile.png"
+                      ? "https://tlink-server.onrender.com/images/" +
+                        data?.profilePicture
+                      : " https://tlink-server.onrender.com/images/defaultProfile.png"
                   }
                   alt="profile-img"
                   className="rounded-circle img-fluid avatar-120"

@@ -60,8 +60,8 @@ const PostForm = ({ id }) => {
             <img
               src={
                 userInfo.user.profilePicture
-                  ? `http://localhost:5000/images/${userInfo.user.profilePicture}`
-                  : `http://localhost:5000/images/defaultProfile.png`
+                  ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
+                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
               }
               alt="user1"
               className="avatar-60 rounded-circle"
@@ -109,8 +109,8 @@ const PostForm = ({ id }) => {
                     <img
                       src={
                         userInfo.user.profilePicture
-                          ? `http://localhost:5000/images/${userInfo.user.profilePicture}`
-                          : `http://localhost:5000/images/defaultProfile.png`
+                          ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
+                          : `https://tlink-server.onrender.com/images/defaultProfile.png`
                       }
                       alt="user1"
                       className="avatar-60 rounded-circle img-fluid"

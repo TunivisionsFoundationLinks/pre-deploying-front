@@ -164,7 +164,7 @@ const EventDetail = () => {
         <ProfileHeader
           img={
             activity?.activityCover
-              ? `http://localhost:5000/images/${activity?.activityCover}`
+              ? `https://tlink-server.onrender.com/images/${activity?.activityCover}`
               : header
           }
           title={activity?.activityName}
@@ -182,8 +182,8 @@ const EventDetail = () => {
                       className="rounded-circle img-fluid avatar-100"
                       src={
                         clubProfile?.otherDetails?.profileImage
-                          ? `http://localhost:5000/images/${clubProfile?.otherDetails?.profileImage}`
-                          : `http://localhost:5000/images/defaultProfile.png`
+                          ? `https://tlink-server.onrender.com/images/${clubProfile?.otherDetails?.profileImage}`
+                          : `https://tlink-server.onrender.com/images/defaultProfile.png`
                       }
                       alt=""
                     />

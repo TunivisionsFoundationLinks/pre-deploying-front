@@ -115,8 +115,8 @@ const Admin = () => {
                               <img
                                 src={
                                   user.profilePicture
-                                    ? `http://localhost:5000/images/${user.profilePicture}`
-                                    : `http://localhost:5000/images/defaultProfile.png`
+                                    ? `https://tlink-server.onrender.com/images/${user.profilePicture}`
+                                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
                                 }
                                 className="img-fluid rounded-circle "
                               />
@@ -141,8 +141,8 @@ const Admin = () => {
                               <img
                                 src={
                                   user.profilePicture
-                                    ? `http://localhost:5000/images/${user.ImageProfile}`
-                                    : `http://localhost:5000/images/defaultProfile.png`
+                                    ? `https://tlink-server.onrender.com/images/${user.ImageProfile}`
+                                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
                                 }
                                 className="img-fluid rounded-circle "
                               />

@@ -1,7 +1,7 @@
 import React from "react";
 
 const DossierDownloadLink = ({ dossierFileName }) => {
-  const downloadLink = `http://localhost:5000/upload/dossier-download/${dossierFileName}`;
+  const downloadLink = `https://tlink-server.onrender.com/upload/dossier-download/${dossierFileName}`;
 
   return (
     <a href={downloadLink} download>

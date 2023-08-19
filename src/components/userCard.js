@@ -14,8 +14,9 @@ const UserCard = ({ id }) => {
         <img
           src={
             user?.profilePicture
-              ? "http://localhost:5000/images/" + user?.profilePicture
-              : "http://localhost:5000/images/defaultProfile.png"
+              ? "https://tlink-server.onrender.com/images/" +
+                user?.profilePicture
+              : "https://tlink-server.onrender.com/images/defaultProfile.png"
           }
           className="avatar-30 rounded-circle align-middle img-fluid"
         />

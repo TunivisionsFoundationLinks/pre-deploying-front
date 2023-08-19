@@ -18,7 +18,7 @@ const HeaderProfile = ({
   const QueryClient = useQueryClient();
   const userId = userInfo.user._id;
   const followUser = async () => {
-    await fetch(`http://localhost:5000/user/follow/${id}`, {
+    await fetch(`https://tlink-server.onrender.com/user/follow/${id}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -41,8 +41,8 @@ const HeaderProfile = ({
             loading="lazy"
             src={
               coverPicture
-                ? `http://localhost:5000/images/${coverPicture}`
-                : `http://localhost:5000/images/defaultCover.jpg`
+                ? `https://tlink-server.onrender.com/images/${coverPicture}`
+                : `https://tlink-server.onrender.com/images/defaultCover.jpg`
             }
             alt="profile-bg"
             className="rounded img-fluid w-100"
@@ -67,8 +67,8 @@ const HeaderProfile = ({
               loading="lazy"
               src={
                 profilePicture
-                  ? `http://localhost:5000/images/${profilePicture}`
-                  : `http://localhost:5000/images/defaultProfile.png`
+                  ? `https://tlink-server.onrender.com/images/${profilePicture}`
+                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
               }
               alt="profile-img1"
               className="avatar-130 img-fluid"

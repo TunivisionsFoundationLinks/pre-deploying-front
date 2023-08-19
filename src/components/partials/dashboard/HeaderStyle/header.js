@@ -514,8 +514,8 @@ const Header = () => {
                   <Image
                     src={
                       userInfo.user.profilePicture
-                        ? `http://localhost:5000/images/${userInfo.user.profilePicture}`
-                        : `http://localhost:5000/images/defaultProfile.png`
+                        ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
+                        : `https://tlink-server.onrender.com/images/defaultProfile.png`
                     }
                     className="img-fluid rounded-circle me-3"
                     alt="user"

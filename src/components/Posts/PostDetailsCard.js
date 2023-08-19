@@ -55,8 +55,8 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
                 className="rounded-circle img-fluid avatar-50"
                 src={
                   users?.profilePicture
-                    ? `http://localhost:5000/images/${users?.profilePicture}`
-                    : `http://localhost:5000/images/defaultProfile.png`
+                    ? `https://tlink-server.onrender.com/images/${users?.profilePicture}`
+                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
                 }
                 alt=""
               />
@@ -83,7 +83,7 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
                   return (
                     <Carousel.Item key={index}>
                       <img
-                        src={`http://localhost:5000/images/${file}`}
+                        src={`https://tlink-server.onrender.com/images/${file}`}
                         alt={`post${index}`}
                         className="img-fluid rounded h-50"
                       />
@@ -94,7 +94,7 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
                     <Carousel.Item key={index}>
                       <video controls className="img-fluid rounded h-50">
                         <source
-                          src={`http://localhost:5000/images/${file}`}
+                          src={`https://tlink-server.onrender.com/images/${file}`}
                           type="video/mp4"
                         />
                       </video>

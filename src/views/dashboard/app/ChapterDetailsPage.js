@@ -106,7 +106,7 @@ const ChapterDetailsPage = () => {
                     <img
                       className="rounded-circle img-fluid avatar-100"
                       src={
-                        "http://localhost:5000/images/" +
+                        "https://tlink-server.onrender.com/images/" +
                         Chapter?.otherDetails?.profileImage
                       }
                       alt=""

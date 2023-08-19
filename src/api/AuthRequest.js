@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://tlink-server.onrender.com",
   withCredentials: true,
 });
 export async function register(FormData) {

@@ -180,9 +180,9 @@ const ClubDetailsPage = () => {
                         className="rounded-circle img-fluid avatar-100"
                         src={
                           Club?.otherDetails?.profileImage
-                            ? "http://localhost:5000/images/" +
+                            ? "https://tlink-server.onrender.com/images/" +
                               Club?.otherDetails?.profileImage
-                            : `http://localhost:5000/images/defaultProfile.png`
+                            : `https://tlink-server.onrender.com/images/defaultProfile.png`
                         }
                         alt="profileImage"
                       />

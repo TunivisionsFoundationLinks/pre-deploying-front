@@ -176,8 +176,8 @@ const SearchPage = () => {
                             <img
                               src={
                                 user?.profilePicture
-                                  ? `http://localhost:5000/images/${user?.profilePicture}`
-                                  : `http://localhost:5000/images/defaultProfile.png`
+                                  ? `https://tlink-server.onrender.com/images/${user?.profilePicture}`
+                                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
                               }
                               alt="story-img"
                               className="rounded-circle avatar-40"
@@ -245,8 +245,8 @@ const SearchPage = () => {
                             <img
                               src={
                                 user?.profilePicture
-                                  ? `http://localhost:5000/images/${user.ImageProfile}`
-                                  : `http://localhost:5000/images/defaultProfile.png`
+                                  ? `https://tlink-server.onrender.com/images/${user.ImageProfile}`
+                                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
                               }
                               alt="story-img"
                               className="rounded-circle avatar-40"
