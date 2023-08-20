@@ -13,6 +13,8 @@ export async function CreatePost(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
       },
     });
 
@@ -25,10 +27,12 @@ export async function getAllPostes() {
   try {
     const response = await api.get("/posts", {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     });
     return response;

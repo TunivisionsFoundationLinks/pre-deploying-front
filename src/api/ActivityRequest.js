@@ -49,6 +49,8 @@ export async function GetAllActivity() {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     });
     return response.data;
@@ -74,6 +76,8 @@ export async function GetActivity(id) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     });
     return response.data;
@@ -116,6 +120,8 @@ export async function RefusedActivity(id) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
       },
     });
     return response.data;

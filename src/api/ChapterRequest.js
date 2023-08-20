@@ -12,6 +12,8 @@ export async function getChapter() {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     });
     return response.data;
@@ -27,6 +29,8 @@ export async function getOneChapter(id) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     });
     return response.data;
@@ -43,8 +47,12 @@ export async function CreateChapter(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
       },
     });
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 }

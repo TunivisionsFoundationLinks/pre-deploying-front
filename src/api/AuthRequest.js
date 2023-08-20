@@ -40,7 +40,13 @@ export async function register(FormData) {
   }
 }
 export const login = async (FormData) =>
-  await API.post("/auth/login", FormData);
+  await API.post("/auth/login", FormData, {
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST",
+    },
+  });
 export const forgetPassword = (FormData) =>
   API.post("/auth/forget-password", FormData);
 export const resetPassword = (FormData) =>

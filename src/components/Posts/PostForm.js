@@ -17,14 +17,12 @@ const PostForm = ({ id }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [shows, setShows] = useState("A"); // Updated state variable name
+  const [shows, setShows] = useState("A");
 
   const [inputs, setInputs] = useState(initialValues);
   const handleImageChange = (e) => {
     const selectedImages = Array.from(e.target.files);
-
     const imageUrls = selectedImages.map((image) => URL.createObjectURL(image));
-
     setInputs((prev) => ({ ...prev, images: selectedImages, imageUrls }));
   };
 
@@ -37,7 +35,6 @@ const PostForm = ({ id }) => {
       values.images.forEach((image, index) => {
         formData.append(`images[${index}]`, image);
       });
-      console.log(values);
       const response = await CreatePost(values);
       handleClose();
       return response;

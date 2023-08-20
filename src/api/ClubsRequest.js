@@ -27,6 +27,8 @@ export async function getOneClub(id) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
       },
     });
     return response.data;
@@ -43,6 +45,8 @@ export async function CreateClub(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
       },
     });
     return response;
@@ -59,6 +63,8 @@ export async function addTunimateur(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
       },
     });
     return response;
@@ -75,6 +81,8 @@ export async function addBureau(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
       },
     });
     return response;
@@ -90,11 +98,13 @@ export async function UpdateBureau(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
       },
     });
     return response;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 export async function requestJoinIn(data) {
@@ -105,6 +115,8 @@ export async function requestJoinIn(data) {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
       },
     });
     return response;
