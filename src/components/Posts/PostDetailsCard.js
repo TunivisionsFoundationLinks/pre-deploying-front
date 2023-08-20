@@ -10,13 +10,6 @@ import {
 
 //image
 
-import user01 from "../../assets/images/user/01.jpg";
-
-import p1 from "../../assets/images/page-img/p1.jpg";
-
-import p2 from "../../assets/images/page-img/p2.jpg";
-import p3 from "../../assets/images/page-img/p3.jpg";
-
 import icon1 from "../../assets/images/icon/01.png";
 
 import { Link } from "react-router-dom";

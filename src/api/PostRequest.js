@@ -35,7 +35,7 @@ export async function getAllPostes() {
         "Access-Control-Allow-Methods": "GET",
       },
     });
-    return response;
+    return response.data;
   } catch (error) {
     throw error;
   }
