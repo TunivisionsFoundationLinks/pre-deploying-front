@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://tlink-server.onrender.com",
+  baseURL: "https://tlinkbackendserver.onrender.com",
   withCredentials: true,
 });
 
@@ -31,11 +31,9 @@ export async function getAllPostes() {
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET",
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }

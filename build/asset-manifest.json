@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.3a7ac1a7.css",
-    "main.js": "/static/js/main.e19f4e68.js",
+    "main.js": "/static/js/main.8a91cdc9.js",
     "static/media/1.jpg": "/static/media/1.cfd7137013b37c3af400.jpg",
     "static/media/video-2.mp4": "/static/media/video-2.40a85315bf4af5fbcd2b.mp4",
     "static/media/video-3.mp4": "/static/media/video-3.37562dfa01c4e7d7a734.mp4",
@@ -13,13 +13,11 @@
     "static/media/07.jpg": "/static/media/07.bb7d261befb8ec00b79e.jpg",
     "static/media/remixicon.svg?t=1590207869815": "/static/media/remixicon.1664a258a7e7714f6f8d.svg",
     "static/media/02.jpg": "/static/media/02.996984acbcab88366af7.jpg",
-    "static/media/p5.jpg": "/static/media/p5.b6f15758b2b85e141585.jpg",
     "static/media/06.jpg": "/static/media/06.753c45f185d15e4cf724.jpg",
     "static/media/la-brands-400.svg": "/static/media/la-brands-400.331115337bc9be66667a.svg",
     "static/media/la-solid-900.svg": "/static/media/la-solid-900.0f874d69730f8631d632.svg",
     "static/media/fa-solid-900.svg": "/static/media/fa-solid-900.352ac9a01292df4193b6.svg",
     "static/media/fa-brands-400.svg": "/static/media/fa-brands-400.ffbf6fd654d1dd568016.svg",
-    "static/media/p4.jpg": "/static/media/p4.c150d6dd650bb09413d2.jpg",
     "static/media/b3.jpg": "/static/media/b3.a3b1d6547b3f8fe6da1b.jpg",
     "static/media/b2.jpg": "/static/media/b2.51dc21bff6c7a8aa4d8a.jpg",
     "static/media/3.png": "/static/media/3.7d83f9cf709075614e56.png",
@@ -167,10 +165,10 @@
     "static/media/logo-white.png": "/static/media/logo-white.bd65ee10109676383fe1.png",
     "index.html": "/index.html",
     "main.3a7ac1a7.css.map": "/static/css/main.3a7ac1a7.css.map",
-    "main.e19f4e68.js.map": "/static/js/main.e19f4e68.js.map"
+    "main.8a91cdc9.js.map": "/static/js/main.8a91cdc9.js.map"
   },
   "entrypoints": [
     "static/css/main.3a7ac1a7.css",
-    "static/js/main.e19f4e68.js"
+    "static/js/main.8a91cdc9.js"
   ]
 }

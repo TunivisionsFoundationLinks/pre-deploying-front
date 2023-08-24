@@ -103,8 +103,9 @@ const EventsCard = ({
             <img
               src={
                 activityCover
-                  ? "https://tlink-server.onrender.com/images/" + activityCover
-                  : "https://tlink-server.onrender.com/images/defaultCover.jpg"
+                  ? "https://tlinkbackendserver.onrender.com/images/" +
+                    activityCover
+                  : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
               }
               className="img-fluid"
               alt="Responsive"
@@ -177,9 +178,9 @@ const EventsCard = ({
                 loading="lazy"
                 src={
                   activityCover
-                    ? "https://tlink-server.onrender.com/images/" +
+                    ? "https://tlinkbackendserver.onrender.com/images/" +
                       activityCover
-                    : "https://tlink-server.onrender.com/images/defaultCover.jpg"
+                    : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
                 }
                 className="img-fluid "
                 alt="profile-img"

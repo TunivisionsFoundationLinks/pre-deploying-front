@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  Carousel,
-  Dropdown,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Card, Carousel } from "react-bootstrap";
 
 //image
 
@@ -17,12 +10,23 @@ import { Link } from "react-router-dom";
 import ShareOffcanvas from "../share-offcanvas";
 import { useQuery } from "@tanstack/react-query";
 import { FetchOneUser } from "../../api/UserRequest";
+import { getOneClub } from "../../api/ClubsRequest";
+import { getOneChapter } from "../../api/ChapterRequest";
 
 const PostDetailsCard = ({ createBy, Disc, files }) => {
   const { data: users } = useQuery({
     queryKey: ["Creator", createBy],
     queryFn: async () => await FetchOneUser(createBy),
   });
+  const { data: club } = useQuery({
+    queryKey: ["Club", createBy],
+    queryFn: async () => getOneClub(createBy),
+  });
+  const { data: Chapter } = useQuery({
+    queryKey: ["Club", createBy],
+    queryFn: async () => getOneChapter(createBy),
+  });
+
   const getFileType = (url) => {
     const fileExtension = url
       ?.substring(url.lastIndexOf(".") + 1)
@@ -38,19 +42,15 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
       return "unknown";
     }
   };
-  return (
-    <Card className=" card-block card-stretch card-height">
-      <Card.Body>
+  const getCreatorName = () => {
+    if (users) {
+      return (
         <div className="user-post-data">
           <div className="d-flex justify-content-between">
             <div className="me-3 w-auto h-50">
               <img
                 className="rounded-circle img-fluid avatar-50"
-                src={
-                  users?.profilePicture
-                    ? `https://tlink-server.onrender.com/images/${users?.profilePicture}`
-                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
-                }
+                src={`https://tlinkbackendserver.onrender.com/images/${users?.profilePicture}`}
                 alt=""
               />
             </div>
@@ -63,8 +63,64 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
             </div>
           </div>
         </div>
+      );
+    } else if (club) {
+      return (
+        <div className="user-post-data">
+          <div className="d-flex justify-content-between">
+            <div className="me-3 w-auto h-50">
+              <img
+                className="rounded-circle img-fluid avatar-50"
+                src={`https://tlinkbackendserver.onrender.com/images/${club?.otherDetails?.profileImage}`}
+                alt=""
+              />
+            </div>
+            <div className="w-100">
+              <Link to="#">
+                <h5 className="mb-0 d-inline-block">
+                  {club?.otherDetails?.ClubName}
+                </h5>
+              </Link>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (Chapter) {
+      return (
+        <div className="user-post-data">
+          <div className="d-flex justify-content-between">
+            <div className="me-3 w-auto h-50">
+              <img
+                className="rounded-circle img-fluid avatar-50"
+                src={`https://tlinkbackendserver.onrender.com/images/${Chapter?.profileImage}`}
+                alt=""
+              />
+            </div>
+            <div className="w-100">
+              <Link to="#">
+                <h5 className="mb-0 d-inline-block">{Chapter.ChapterName}</h5>
+              </Link>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return "Unknown Creator";
+    }
+  };
+  return (
+    <Card className=" card-block card-stretch card-height">
+      <Card.Body>
+        {getCreatorName()}
         <div className="mt-3">
-          <p>{Disc}</p>
+          <textarea
+            className="border-0"
+            type="text"
+            name="Description"
+            value={Disc}
+            readOnly
+            style={{ resize: "none" }}
+          />
         </div>
         <div className="user-post">
           <Carousel>
@@ -76,7 +132,7 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
                   return (
                     <Carousel.Item key={index}>
                       <img
-                        src={`https://tlink-server.onrender.com/images/${file}`}
+                        src={`https://tlinkbackendserver.onrender.com/images/${file}`}
                         alt={`post${index}`}
                         className="img-fluid rounded h-50"
                       />
@@ -87,7 +143,7 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
                     <Carousel.Item key={index}>
                       <video controls className="img-fluid rounded h-50">
                         <source
-                          src={`https://tlink-server.onrender.com/images/${file}`}
+                          src={`https://tlinkbackendserver.onrender.com/images/${file}`}
                           type="video/mp4"
                         />
                       </video>

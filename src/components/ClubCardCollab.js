@@ -16,9 +16,9 @@ const ClubCardCollab = ({ Club }) => {
           <img
             src={
               partner?.otherDetails?.profileImage
-                ? "https://tlink-server.onrender.com/images/" +
+                ? "https://tlinkbackendserver.onrender.com/images/" +
                   partner?.otherDetails?.profileImage
-                : "https://tlink-server.onrender.com/images/defaultProfile.png"
+                : "https://tlinkbackendserver.onrender.com/images/defaultProfile.png"
             }
             className="avatar-60 rounded-circle align-middle img-fluid"
           />

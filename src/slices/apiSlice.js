@@ -10,7 +10,7 @@ export const apiSlice = createApi({
     GETUSERS: builder.mutation({
       query: (data) => ({
         url:
-          `https://tlink-server.onrender.com/user/${data.id}` ||
+          `https://tlinkbackendserver.onrender.com/user/${data.id}` ||
           `${USER_URL}/user/${data.id}`,
         method: "GET",
       }),

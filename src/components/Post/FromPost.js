@@ -42,8 +42,8 @@ const FromPost = (data) => {
             <img
               src={
                 userInfo.user.profilePicture
-                  ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
-                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                  ? `https://tlinkbackendserver.onrender.com/images/${userInfo.user.profilePicture}`
+                  : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
               }
               alt="user1"
               className="avatar-60 rounded-circle"
@@ -89,8 +89,8 @@ const FromPost = (data) => {
               <img
                 src={
                   user1
-                    ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
-                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                    ? `https://tlinkbackendserver.onrender.com/images/${userInfo.user.profilePicture}`
+                    : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                 }
                 alt="user1"
                 className="avatar-60 rounded-circle img-fluid"
@@ -117,7 +117,7 @@ const FromPost = (data) => {
                     <img
                       className="img-fluid avatar-70 me-3"
                       src={
-                        "https://tlink-server.onrender.com/images/1677365962829WhatsApp%20Image%202022-12-29%20%C3%A0%2014.12.07.jpg"
+                        "https://tlinkbackendserver.onrender.com/images/1677365962829WhatsApp%20Image%202022-12-29%20%C3%A0%2014.12.07.jpg"
                       }
                       alt="post"
                     />

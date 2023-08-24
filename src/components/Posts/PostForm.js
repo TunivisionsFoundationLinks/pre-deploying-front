@@ -2,15 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import img1 from "../../assets/images/small/07.png";
 import { Formik } from "formik";
 import { CreatePost } from "../../api/PostRequest";
+import { useQuery } from "@tanstack/react-query";
+import { FetchOneUser } from "../../api/UserRequest";
+import { getOneClub } from "../../api/ClubsRequest";
 
 const PostForm = ({ id }) => {
+  let location = useLocation();
   const { userInfo } = useSelector((state) => state.user);
   const initialValues = {
-    id: userInfo.user?._id,
+    id: id ? id : userInfo.user?._id,
     desc: "",
     images: null,
   };
@@ -18,7 +22,14 @@ const PostForm = ({ id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [shows, setShows] = useState("A");
-
+  const { data: users } = useQuery({
+    queryKey: ["Creator", id],
+    queryFn: async () => await FetchOneUser(id),
+  });
+  const { data: club } = useQuery({
+    queryKey: ["Club", id],
+    queryFn: async () => getOneClub(id),
+  });
   const [inputs, setInputs] = useState(initialValues);
   const handleImageChange = (e) => {
     const selectedImages = Array.from(e.target.files);
@@ -44,8 +55,13 @@ const PostForm = ({ id }) => {
       setSubmitting(false);
     }
   };
+  const userid = userInfo.user._id;
+  const { data: userAuth } = useQuery({
+    queryKey: ["authUser", userid],
+    queryFn: async () => await FetchOneUser(userid),
+  });
   return (
-    <Card id="post-modal-data" className="card-block card-stretch card-height">
+    <Card id="post-modal-data" className="card-block card-stretch">
       <div className="card-header d-flex justify-content-between">
         <div className="header-title">
           <h4 className="card-title">Create Post</h4>
@@ -53,16 +69,27 @@ const PostForm = ({ id }) => {
       </div>
       <Card.Body>
         <div className="d-flex align-items-center">
-          <div className="user-img">
-            <img
-              src={
-                userInfo.user.profilePicture
-                  ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
-                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
-              }
-              alt="user1"
-              className="avatar-60 rounded-circle"
-            />
+          <div className="user-img rounded-circle">
+            {location.pathname === "/clubs/:id" ? (
+              <img
+                src={
+                  club?.otherDetails?.profileImage &&
+                  `https://tlinkbackendserver.onrender.com/images/${club?.otherDetails?.profileImage}`
+                }
+                alt="user1"
+                className="avatar-100 rounded-circle"
+              />
+            ) : (
+              <img
+                src={
+                  userAuth?.profilePicture
+                    ? `https://tlinkbackendserver.onrender.com/images/${userAuth?.profilePicture}`
+                    : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
+                }
+                alt="user1"
+                className="avatar-60 rounded-circle"
+              />
+            )}
           </div>
           <form className="post-text ms-3 w-100 " onClick={handleShow}>
             <input
@@ -103,15 +130,26 @@ const PostForm = ({ id }) => {
               <Modal.Body>
                 <div className="d-flex align-items-center">
                   <div className="user-img">
-                    <img
-                      src={
-                        userInfo.user.profilePicture
-                          ? `https://tlink-server.onrender.com/images/${userInfo.user.profilePicture}`
-                          : `https://tlink-server.onrender.com/images/defaultProfile.png`
-                      }
-                      alt="user1"
-                      className="avatar-60 rounded-circle img-fluid"
-                    />
+                    {location.pathname === "/clubs/:id" ? (
+                      <img
+                        src={
+                          club?.otherDetails?.profileImage &&
+                          `https://tlinkbackendserver.onrender.com/images/${club?.otherDetails?.profileImage}`
+                        }
+                        alt="user1"
+                        className="avatar-100 rounded-circle"
+                      />
+                    ) : (
+                      <img
+                        src={
+                          userAuth?.profilePicture
+                            ? `https://tlinkbackendserver.onrender.com/images/${userAuth?.profilePicture}`
+                            : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
+                        }
+                        alt="user1"
+                        className="avatar-60 rounded-circle"
+                      />
+                    )}
                   </div>
                   <form
                     className="post-text ms-3 w-100 "
@@ -156,7 +194,7 @@ const PostForm = ({ id }) => {
                 </div>
                 <hr />
                 <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
-                  <li className="col-md-6 mb-3">
+                  <li className=" mb-3">
                     <div className="bg-soft-primary rounded p-2 pointer me-3">
                       <Button onClick={() => setShows("addImage")}>
                         <img src={img1} alt="icon" className="img-fluid" />{" "}
@@ -169,7 +207,8 @@ const PostForm = ({ id }) => {
 
                 <button
                   type="submit"
-                  className="btn btn-primary d-block w-100 mt-3"
+                  variant="primary"
+                  className="d-block w-100 mt-3 btn btn-primary"
                   disabled={isSubmitting}
                   onClick={handleSubmit}
                 >

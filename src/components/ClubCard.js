@@ -89,8 +89,8 @@ const ClubCard = ({
         <img
           src={
             ImageCover
-              ? "https://tlink-server.onrender.com/images/" + ImageCover
-              : "https://tlink-server.onrender.com/images/defaultCover.jpg"
+              ? "https://tlinkbackendserver.onrender.com/images/" + ImageCover
+              : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
           }
           className="img-fluid w-100"
           alt="group-bg"
@@ -101,8 +101,9 @@ const ClubCard = ({
           <img
             src={
               ImageProfile
-                ? "https://tlink-server.onrender.com/images/" + ImageProfile
-                : "https://tlink-server.onrender.com/images/defaultProfile.png"
+                ? "https://tlinkbackendserver.onrender.com/images/" +
+                  ImageProfile
+                : "https://tlinkbackendserver.onrender.com/images/defaultProfile.png"
             }
             alt="profile-img"
             className="rounded-circle img-fluid avatar-120"

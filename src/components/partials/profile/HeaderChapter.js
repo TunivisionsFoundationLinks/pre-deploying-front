@@ -8,7 +8,9 @@ const ChapterHeader = (props) => {
         <Container>
           <div className="background-header position-relative">
             <img
-              src={"https://tlink-server.onrender.com/images/" + props.img}
+              src={
+                "https://tlinkbackendserver.onrender.com/images/" + props.img
+              }
               className="img-fluid bg-cover"
               style={{ width: "100%", height: "300px" }}
               alt="header-bg"

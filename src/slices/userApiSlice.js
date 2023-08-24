@@ -7,7 +7,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     login: builder.mutation({
       query: (data) => ({
         url:
-          `https://tlink-server.onrender.com/auth/login` ||
+          `https://tlinkbackendserver.onrender.com/auth/login` ||
           `${USER_URL}/auth/login`,
         method: "POST",
         body: data,
@@ -16,7 +16,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     logout: builder.mutation({
       query: () => ({
         url:
-          `https://tlink-server.onrender.com/auth/logout` ||
+          `https://tlinkbackendserver.onrender.com/auth/logout` ||
           `${USER_URL}/auth/logout`,
         method: "POST",
       }),
@@ -24,7 +24,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     UpdatePassword: builder.mutation({
       query: (data) => ({
         url:
-          `https://tlink-server.onrender.com/auth/reset-password/:id}/:ac_token` ||
+          `https://tlinkbackendserver.onrender.com/auth/reset-password/:id}/:ac_token` ||
           `${USER_URL}/auth/reset-password/${data.id}/${data.ac_token}`,
         method: "PUT",
         body: data.inputs,

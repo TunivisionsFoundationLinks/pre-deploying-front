@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://tlink-server.onrender.com",
+  baseURL: "https://tlinkbackendserver.onrender.com",
   withCredentials: true,
 });
 API.interceptors.request.use((req) => {

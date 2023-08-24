@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 const api = axios.create({
-  baseURL: "https://tlink-server.onrender.com",
+  baseURL: "https://tlinkbackendserver.onrender.com",
 });
 
 export async function CreateEvent(data) {

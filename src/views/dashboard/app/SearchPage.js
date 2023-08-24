@@ -66,7 +66,11 @@ const SearchPage = () => {
         }
       });
   };
-  const { data, error, isLoading } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["Users"],
     queryFn: fetchUsers,
   });
@@ -79,12 +83,12 @@ const SearchPage = () => {
     queryFn: getClub,
   });
 
-  const [filters, setFilters] = useState({ data: data, Club: Clubs });
+  const [filters, setFilters] = useState({ data: users, Club: Clubs });
   const [Input, setInput] = useState();
-  const handleFilter = (e) => {
+  const handleFilter = async (e) => {
     const searchWord = e.target.value;
     searchWord ? setInput(searchWord) : setInput("");
-    const newData = data?.filter((row) => {
+    const newData = await users?.filter((row) => {
       return (
         row.lastname
           ?.toLowerCase()
@@ -100,7 +104,7 @@ const SearchPage = () => {
           ?.includes(e.target.value?.toLowerCase()?.replace(/\s/g, ""))
       );
     });
-    const ClubsData = Clubs?.filter((row) => {
+    const ClubsData = await Clubs?.filter((row) => {
       return (
         row.ClubName?.toLowerCase()
           ?.replace(/\s/g, "")
@@ -114,6 +118,18 @@ const SearchPage = () => {
     setFilters({ data: newData, Club: ClubsData });
   };
 
+  load &&
+    toast.info("waiting...", {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Flip,
+    });
   isLoading &&
     toast.info("waiting...", {
       position: "bottom-center",
@@ -176,8 +192,8 @@ const SearchPage = () => {
                             <img
                               src={
                                 user?.profilePicture
-                                  ? `https://tlink-server.onrender.com/images/${user?.profilePicture}`
-                                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                                  ? `https://tlinkbackendserver.onrender.com/images/${user?.profilePicture}`
+                                  : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                               }
                               alt="story-img"
                               className="rounded-circle avatar-40"
@@ -189,6 +205,9 @@ const SearchPage = () => {
                             </h6>
                             <p className="mb-0">
                               {user?.followers.length} T-Link Followers
+                            </p>
+                            <p className="mb-0">
+                              {user?.points} T-Link Followers
                             </p>
                           </div>
                         </Link>
@@ -245,8 +264,8 @@ const SearchPage = () => {
                             <img
                               src={
                                 user?.profilePicture
-                                  ? `https://tlink-server.onrender.com/images/${user.ImageProfile}`
-                                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                                  ? `https://tlinkbackendserver.onrender.com/images/${user.ImageProfile}`
+                                  : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                               }
                               alt="story-img"
                               className="rounded-circle avatar-40"

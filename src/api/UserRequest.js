@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://tlink-server.onrender.com",
+  baseURL: "https://tlinkbackendserver.onrender.com",
 });
 
 export async function fetchUsers() {
@@ -24,7 +24,7 @@ export async function fetchUsers() {
 export async function FetchOneUser(id) {
   try {
     const response = await api.get(
-      `https://tlink-server.onrender.com/user/${id}`,
+      `https://tlinkbackendserver.onrender.com/user/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export async function FetchOneUser(id) {
 
 export async function unfollow(id) {
   const response = await api.put(
-    `https://tlink-server.onrender.com/user/${id}/unfollow`,
+    `https://tlinkbackendserver.onrender.com/user/${id}/unfollow`,
     {
       method: "PUT",
       headers: {
@@ -65,7 +65,7 @@ export async function unfollow(id) {
 
 export async function updateProfile(User) {
   const response = await api.put(
-    `https://tlink-server.onrender.com/user/${User._id}`,
+    `https://tlinkbackendserver.onrender.com/user/${User._id}`,
     {
       method: "PUT",
       headers: {
@@ -84,7 +84,7 @@ export async function updateProfile(User) {
 
 export async function deleteUser(id) {
   const response = await api.delete(
-    `https://tlink-server.onrender.com/user/${id}`,
+    `https://tlinkbackendserver.onrender.com/user/${id}`,
     {
       method: "DELETE",
     }

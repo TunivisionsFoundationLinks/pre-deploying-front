@@ -18,7 +18,7 @@ const HeaderProfile = ({
   const QueryClient = useQueryClient();
   const userId = userInfo.user._id;
   const followUser = async () => {
-    await fetch(`https://tlink-server.onrender.com/user/follow/${id}`, {
+    await fetch(`https://tlinkbackendserver.onrender.com/user/follow/${id}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -41,8 +41,8 @@ const HeaderProfile = ({
             loading="lazy"
             src={
               coverPicture
-                ? `https://tlink-server.onrender.com/images/${coverPicture}`
-                : `https://tlink-server.onrender.com/images/defaultCover.jpg`
+                ? `https://tlinkbackendserver.onrender.com/images/${coverPicture}`
+                : `https://tlinkbackendserver.onrender.com/images/defaultCover.jpg`
             }
             alt="profile-bg"
             className="rounded img-fluid w-100"
@@ -58,28 +58,25 @@ const HeaderProfile = ({
             </li>
           </ul>
         </div>
-        <div
-          className="user-detail text-center mx-auto"
-          style={{ width: "200px" }}
-        >
-          <div className="profile-img">
+        <div className="user-detail text-center mx-auto">
+          <div className="">
             <img
               loading="lazy"
               src={
                 profilePicture
-                  ? `https://tlink-server.onrender.com/images/${profilePicture}`
-                  : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                  ? `https://tlinkbackendserver.onrender.com/images/${profilePicture}`
+                  : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
               }
               alt="profile-img1"
-              className="avatar-130 img-fluid"
+              className="avatar-100 img-fluid rounded-circle"
             />
           </div>
 
           <div className="profile-detail w-100">
             <h3>{firstname + " " + lastname}</h3>
           </div>
-          <div className="social-info ">
-            <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
+          <div className="social-info w-100 mx-auto">
+            <ul className="social-data-block d-flex align-items-center justify-content-center list-inline p-0 m-0">
               <li className="text-center ps-3">
                 <h6>TPoints</h6>
                 <p className="mb-0">{points}</p>

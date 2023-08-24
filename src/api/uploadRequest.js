@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://tlink-server.onrender.com" });
+const API = axios.create({
+  baseURL: "https://tlinkbackendserver.onrender.com",
+});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {

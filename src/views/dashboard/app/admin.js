@@ -17,6 +17,7 @@ import { fetchUsers } from "../../../api/UserRequest";
 import { getClub } from "../../../api/ClubsRequest";
 import { GetAllActivity } from "../../../api/ActivityRequest";
 import { getAllPostes } from "../../../api/PostRequest";
+import { Link } from "react-router-dom";
 
 const Admin = () => {
   const {
@@ -115,15 +116,17 @@ const Admin = () => {
                               <img
                                 src={
                                   user.profilePicture
-                                    ? `https://tlink-server.onrender.com/images/${user.profilePicture}`
-                                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                                    ? `https://tlinkbackendserver.onrender.com/images/${user.profilePicture}`
+                                    : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                                 }
                                 className="img-fluid rounded-circle "
                               />
                             </div>
                           </div>
                           <div className="mt-4 text-center">
-                            <p>{user.firstname + " " + user.lastname}</p>
+                            <Link to={`/profile/${user._id}`}>
+                              <p>{user.firstname + " " + user.lastname}</p>
+                            </Link>
                             <p className="mb-0">{user.points} Points</p>
                           </div>
                         </Card.Body>
@@ -141,8 +144,8 @@ const Admin = () => {
                               <img
                                 src={
                                   user.profilePicture
-                                    ? `https://tlink-server.onrender.com/images/${user.ImageProfile}`
-                                    : `https://tlink-server.onrender.com/images/defaultProfile.png`
+                                    ? `https://tlinkbackendserver.onrender.com/images/${user.ImageProfile}`
+                                    : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                                 }
                                 className="img-fluid rounded-circle "
                               />

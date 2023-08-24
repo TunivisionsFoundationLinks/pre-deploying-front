@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://tlink-server.onrender.com",
+  baseURL: "https://tlinkbackendserver.onrender.com",
 });
 
 export async function getClub() {
@@ -31,7 +31,7 @@ export async function getOneClub(id) {
         "Access-Control-Allow-Methods": "GET",
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     return error.message;
   }
