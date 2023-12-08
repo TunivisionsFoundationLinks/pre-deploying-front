@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState, useEffect } from "react";
-import { getClub, getOneClub } from "../api/ClubsRequest";
+import React from "react";
 import { Container } from "react-bootstrap";
+import { getOneClub } from "../api/ClubsRequest";
 
 const ClubCardCollab = ({ Club }) => {
   const { data: partner } = useQuery({
@@ -16,16 +16,18 @@ const ClubCardCollab = ({ Club }) => {
           <img
             src={
               partner?.otherDetails?.profileImage
-                ? "https://tlinkbackendserver.onrender.com/images/" +
+                ? `https://tlinkbackendserver.onrender.com/images/` +
                   partner?.otherDetails?.profileImage
-                : "https://tlinkbackendserver.onrender.com/images/defaultProfile.png"
+                : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
             }
             className="avatar-60 rounded-circle align-middle img-fluid"
           />
         </div>
 
         <div className="container-fluid w-auto h-auto text-center mx-auto p-2">
-          <h6 className="text-center">{partner?.otherDetails?.ClubName}</h6>
+          <h6 className="text-center">
+            {partner?.data?.otherDetails?.ClubName}
+          </h6>
         </div>
       </Container>
     </div>

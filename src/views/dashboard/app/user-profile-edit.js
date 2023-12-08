@@ -333,7 +333,7 @@ const UserProfileEdit = () => {
                             </Form.Select>
                           </Form.Group>
                         </Row>
-                        <Button type="submit" className="btn btn-primary me-2">
+                        <Button type="submit" className="btn btn-danger me-2">
                           Submit
                         </Button>
                         <Button type="reset" className="btn bg-soft-danger">
@@ -388,7 +388,7 @@ const UserProfileEdit = () => {
                             defaultValue=""
                           />
                         </Form.Group>
-                        <Button type="submit" className="btn btn-primary me-2">
+                        <Button type="submit" className="btn btn-danger me-2">
                           Submit
                         </Button>
                         <Button type="reset" className="btn bg-soft-danger">
@@ -549,7 +549,7 @@ const UserProfileEdit = () => {
                             </Form.Check>
                           </Col>
                         </Form.Group>
-                        <Button type="submit" className="btn btn-primary me-2">
+                        <Button type="submit" className="btn btn-danger me-2">
                           Submit
                         </Button>
                         <Button type="reset" className="btn bg-soft-danger">
@@ -601,7 +601,7 @@ const UserProfileEdit = () => {
                             defaultValue="https://getbootstrap.com"
                           />
                         </Form.Group>
-                        <Button type="submit" className="btn btn-primary me-2">
+                        <Button type="submit" className="btn btn-danger me-2">
                           Submit
                         </Button>
                         <Button type="reset" className="btn bg-soft-danger">

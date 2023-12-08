@@ -49,7 +49,7 @@ const Weather = () => {
                                     </select>
                                  </Form.Group>
                                  <Form.Group className="form-group mb-0">
-                                    <button type="button" className="btn  btn-primary d-block w-100">Check wether</button>
+                                    <button type="button" className="btn  btn-danger d-block w-100">Check wether</button>
                                  </Form.Group>
                               </Form>
                            </Card.Body>
@@ -63,7 +63,7 @@ const Weather = () => {
                         </Card>
                      </Col>
                      <Col lg="3">
-                        <Card className="card-block card-stretch card-height bg-primary rounded text-white mt-3">
+                        <Card className="card-block card-stretch card-height bg-danger rounded text-white mt-3">
                            <Card.Body className="p-4">
                               <div className="text-center">
                                  <div className="d-flex">

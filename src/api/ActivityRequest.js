@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 const api = axios.create({
-  baseURL: "https://tlinkbackendserver.onrender.com",
+  baseURL: process.env.SERVER_URL,
 });
 
 export async function CreateEvent(data) {
@@ -216,5 +216,40 @@ export async function UnParticipant(data) {
         theme: "light",
       });
     throw error;
+  }
+}
+export async function sendLink(data) {
+  try {
+    const response = api.put(`/activity/${data.id}/sendlink`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
+      },
+    });
+    return response;
+  } catch (error) {
+    throw new error();
+  }
+}
+
+export async function Scoring(data) {
+  try {
+    const response = api.put(`/activity/${data.id}/score`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
+      },
+    });
+    return response;
+  } catch (error) {
+    throw new error();
   }
 }

@@ -1,10 +1,9 @@
 import React from "react";
-import { Row, Col, Container, Form, Button, Image } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 //swiper
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Autoplay } from "swiper";
+import SwiperCore, { Autoplay, Navigation } from "swiper";
 
 // Import Swiper styles
 import "swiper/swiper-bundle.min.css";
@@ -12,9 +11,7 @@ import "swiper/swiper-bundle.min.css";
 
 //img
 import logo from "../../../assets/images/logo.png";
-import login1 from "../../../assets/images/login/1.jpg";
-import login2 from "../../../assets/images/login/2.png";
-import login3 from "../../../assets/images/login/3.png";
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../../actions/authActions";
@@ -120,7 +117,7 @@ const SignIn = () => {
                       <Form.Check.Label>Remember Me</Form.Check.Label>{" "}
                     </Form.Check>
                     <Button
-                      variant="primary"
+                      variant="danger"
                       type="button"
                       className="float-end"
                       onClick={handleLogin}

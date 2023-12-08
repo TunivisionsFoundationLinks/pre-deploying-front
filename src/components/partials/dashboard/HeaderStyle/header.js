@@ -1,21 +1,14 @@
 import React from "react";
-import { Dropdown, Nav, Card, Container, Image } from "react-bootstrap";
+import { Card, Container, Dropdown, Image, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 //image
-import user1 from "../../../../assets/images/user/1.jpg";
-import user2 from "../../../../assets/images/user/02.jpg";
-import user3 from "../../../../assets/images/user/03.jpg";
-import user4 from "../../../../assets/images/user/04.jpg";
-import user5 from "../../../../assets/images/user/05.jpg";
 
 import logo from "../../../../assets/images/logo-white.png";
 //Componets
 import CustomToggle from "../../../dropdowns";
 // import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
-import { useSelector, useDispatch } from "react-redux";
-import { useLogoutMutation } from "../../../../slices/userApiSlice";
-import { isLogout } from "../../../../store/auth/authSlice";
+import { useSelector } from "react-redux";
 import { Flip, toast } from "react-toastify";
 
 const Header = () => {
@@ -25,13 +18,10 @@ const Header = () => {
 
   const { userInfo } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch();
-  const [logoutApiCall] = useLogoutMutation();
   const navigate = useNavigate();
   const handlelogout = async () => {
     try {
-      await logoutApiCall().unwrap();
-      dispatch(isLogout());
+      localStorage.removeItem("userInfo");
       navigate("/login");
     } catch (err) {
       toast.error(err.message, {
@@ -104,7 +94,7 @@ const Header = () => {
                 </Link>
               </Nav.Item>
 
-              <Dropdown as="li" className="nav-item">
+              {/* <Dropdown as="li" className="nav-item">
                 <Dropdown.Toggle
                   href="/"
                   as={CustomToggle}
@@ -138,7 +128,7 @@ const Header = () => {
                           <div className="d-flex align-items-center">
                             <Link
                               to="#"
-                              className="me-3 btn btn-primary rounded"
+                              className="me-3 btn btn-danger rounded"
                             >
                               Confirm
                             </Link>
@@ -168,7 +158,7 @@ const Header = () => {
                           <div className="d-flex align-items-center">
                             <Link
                               to="#"
-                              className="me-3 btn btn-primary rounded"
+                              className="me-3 btn btn-danger rounded"
                             >
                               Confirm
                             </Link>
@@ -228,7 +218,7 @@ const Header = () => {
                           <div className="d-flex align-items-center">
                             <Link
                               to="#"
-                              className="me-3 btn btn-primary rounded"
+                              className="me-3 btn btn-danger rounded"
                             >
                               Confirm
                             </Link>
@@ -504,7 +494,7 @@ const Header = () => {
                   <i className="material-symbols-outlined">mail</i>
                   <span className="mobile-text  ms-3">Message</span>
                 </Link>
-              </Nav.Item>
+              </Nav.Item> */}
               <Dropdown as="li" className="nav-item user-dropdown">
                 <Dropdown.Toggle
                   href="#"
@@ -532,7 +522,7 @@ const Header = () => {
                     <Card.Header>
                       <div className="header-title">
                         <h5 className="mb-0 ">
-                          Hello{" "}
+                          Hello
                           {userInfo.user.firstname +
                             " " +
                             userInfo.user.lastname}

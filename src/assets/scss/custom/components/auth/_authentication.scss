@@ -22,7 +22,7 @@
     rgba(var(--bs-danger-rgb), 0.8) 0%,
     var(--bs-danger) 100%
   );
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(var(--bs-primary-rgb),.8)', endColorstr='var(--bs-primary)', GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(var(--bs-danger-rgb),.8)', endColorstr='var(--bs-danger)', GradientType=1);
   position: relative;
   overflow: hidden;
   height: 100vh;
@@ -70,8 +70,8 @@
       font-size: 1.125rem;
       line-height: 1.875rem;
       display: inline-block;
-      background: rgba(var(--bs-primary-rgb), 0.2);
-      color: var(--bs-primary) !important;
+      background: rgba(var(--bs-danger-rgb), 0.2);
+      color: var(--bs-danger) !important;
       @if $enable-rounded == true {
         @include radius-mixin($border-radius);
       }

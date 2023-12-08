@@ -1,19 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 
 //router
 import { Link, useLocation } from "react-router-dom";
 
 //react-bootstrap
+import { useQuery } from "@tanstack/react-query";
 import {
   Accordion,
-  useAccordionButton,
   AccordionContext,
   Nav,
-  Tooltip,
   OverlayTrigger,
+  Tooltip,
+  useAccordionButton,
 } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
 import { FetchOneUser } from "../../../../api/UserRequest";
 
 function CustomToggle({ children, eventKey, onClick }) {
@@ -45,10 +45,9 @@ const VerticalNav = React.memo(() => {
 
   //location
   let location = useLocation();
-  // console.log(document);
 
-  const { userInfo } = useSelector((state) => state.user);
-  const userid = userInfo.user._id;
+  const { userInfo } = useSelector((state) => state?.user);
+  const userid = userInfo?.user?._id;
   const { data, error, isLoading } = useQuery({
     queryKey: ["user-request", userid],
     queryFn: async () => await FetchOneUser(userid),
@@ -316,7 +315,7 @@ const VerticalNav = React.memo(() => {
             className={`${
               location.pathname === "/profile/:id" ? "active" : ""
             } nav-link`}
-            to={`/profile/${userInfo.user._id}`}
+            to={`/profile/${userInfo?.user?._id}`}
           >
             <i className="icon material-symbols-outlined">person</i>
             <OverlayTrigger
@@ -328,7 +327,7 @@ const VerticalNav = React.memo(() => {
             <span className="item-name"> Profile </span>
           </Link>
         </Nav.Item>
-        {data?.club ? (
+        {data?.isClub === true ? (
           <>
             <Nav.Item as="li">
               <Link
@@ -364,6 +363,27 @@ const VerticalNav = React.memo(() => {
                 <span className="item-name">Clubs</span>
               </Link>
             </Nav.Item>
+            <Nav.Item as="li">
+              <Link
+                className={`${
+                  location.pathname === `/Chapter/${data?.Chapter}`
+                    ? "active"
+                    : ""
+                } nav-link `}
+                aria-current="page"
+                to={`/Chapter/${data?.Chapter}`}
+              >
+                <OverlayTrigger
+                  placement="right"
+                  overlay={<Tooltip>Group</Tooltip>}
+                >
+                  <i className="icon material-symbols-outlined">groups</i>
+                </OverlayTrigger>
+                <span className="item-name">
+                  Chapter {`${data?.ChapterName}`}
+                </span>
+              </Link>
+            </Nav.Item>
           </>
         ) : (
           <Nav.Item as="li">
@@ -383,6 +403,31 @@ const VerticalNav = React.memo(() => {
               <span className="item-name">Clubs List</span>
             </Link>
           </Nav.Item>
+        )}
+        {(data?.isBureau === true) & (data?.isClub === true) ? (
+          <Nav.Item as="li">
+            <Link
+              className={`${
+                location.pathname === `/Chapter/${data?.Chapter}`
+                  ? "active"
+                  : ""
+              } nav-link `}
+              aria-current="page"
+              to={`/Chapter/${data?.Chapter}`}
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">
+                Chapter {`${data?.ChapterName}`}
+              </span>
+            </Link>
+          </Nav.Item>
+        ) : (
+          <></>
         )}
         <Nav.Item as="li">
           <Link

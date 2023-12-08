@@ -4,7 +4,6 @@ import React from "react";
 import Header from "../../components/partials/dashboard/HeaderStyle/header";
 
 //sidebar
-import RightSidebar from "../../components/partials/dashboard/SidebarStyle/rightsidebar";
 
 //sidebar
 import Sidebar from "../../components/partials/dashboard/SidebarStyle/sidebar";
@@ -16,7 +15,6 @@ import Sidebar from "../../components/partials/dashboard/SidebarStyle/sidebar";
 // import ShareOffcanvas from '../../components/share-offcanvas'
 
 //settingoffCanvas
-import SettingOffCanvas from "../../components/setting/SettingOffCanvas";
 import { Outlet } from "react-router-dom";
 
 const Default = () => {
@@ -30,7 +28,7 @@ const Default = () => {
         <Outlet />
         {/* </div> */}
       </div>
-      <RightSidebar />
+      {/* <RightSidebar /> */}
     </>
   );
 };

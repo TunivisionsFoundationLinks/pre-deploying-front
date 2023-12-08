@@ -19,7 +19,7 @@ const RequestTable = () => {
     queryFn: async () => getOneClub(id),
   });
 
-  const request = Club?.data?.otherDetails?.requeste;
+  const request = Club?.data?.data?.otherDetails?.requeste;
   return (
     <Container>
       <RequestHeadersPage img={img7} title="Club Request" />

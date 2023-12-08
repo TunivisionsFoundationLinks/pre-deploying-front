@@ -85,8 +85,8 @@ const TunimateurList = () => {
       ),
     },
   ];
-
-  const chapter = getUser?.data?.Chapter;
+  const chapter = getUser?.data?.isBureau;
+  const admin = getUser?.data?.isAdmin;
   const isPresident = getUser?.data?.role;
   const manager = getUser?.data?.role;
   const departement = getUser?.data?.Departement;
@@ -135,11 +135,13 @@ const TunimateurList = () => {
     <>
       <Container className="mt-5">
         <div className="d-flex justify-content-between">
-          <AddBureauCard dataMembers={dataMembers} />
+          {/* <AddBureauCard dataMembers={dataMembers} /> */}
 
-          {(manager === "Manager") &
-          (departement === "Ressource Humaine") &
-          (chapter === getClub.data?.otherDetails?.ChapterId) ? (
+          {(manager === "Manager" &&
+            departement === "Ressource Humaine" &&
+            chapter === getClub.data?.otherDetails?.ChapterId) ||
+          admin ||
+          chapter ? (
             <AddBureauCard dataMembers={dataMembers} />
           ) : (
             ""
@@ -147,7 +149,7 @@ const TunimateurList = () => {
           <div className="d-flex iq-search-bar device-search mb-3  w-auto">
             <input
               type="text"
-              className="text search-input bg-grey border-none p-2"
+              className="text search-input bg-grey border-none p-2 w-100"
               onChange={handleFilter}
               placeholder="Type here to search..."
             />

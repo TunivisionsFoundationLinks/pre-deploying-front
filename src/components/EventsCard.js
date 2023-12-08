@@ -5,15 +5,15 @@ import Card from "./Card";
 
 // images
 
-import { Button, Form, Modal } from "react-bootstrap";
-import { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { AccepteActivity, RefusedActivity } from "../api/ActivityRequest";
 import { getOneClub } from "../api/ClubsRequest";
-import UserCard from "./userCard";
 import ClubCardCollab from "./ClubCardCollab";
 import DossierDownloadLink from "./LinkToDownload";
-import { RefusedActivity, AccepteActivity } from "../api/ActivityRequest";
-import { toast } from "react-toastify";
+import UserCard from "./userCard";
 const EventsCard = ({
   id,
   activityName,
@@ -103,9 +103,9 @@ const EventsCard = ({
             <img
               src={
                 activityCover
-                  ? "https://tlinkbackendserver.onrender.com/images/" +
+                  ? `https://tlinkbackendserver.onrender.com/images/` +
                     activityCover
-                  : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
+                  : `https://tlinkbackendserver.onrender.com/images/defaultCover.jpg`
               }
               className="img-fluid"
               alt="Responsive"
@@ -132,7 +132,12 @@ const EventsCard = ({
                 <h6>{data?.otherDetails?.ClubName}</h6>
               </div>
               <div className="d-flex justify-content-evenly ">
-                <Button type="button" onClick={handleShow}>
+                <Button
+                  type="button"
+                  variant="danger"
+                  className="btn btn-danger"
+                  onClick={handleShow}
+                >
                   Details
                 </Button>
               </div>
@@ -178,9 +183,9 @@ const EventsCard = ({
                 loading="lazy"
                 src={
                   activityCover
-                    ? "https://tlinkbackendserver.onrender.com/images/" +
+                    ? `https://tlinkbackendserver.onrender.com/images/` +
                       activityCover
-                    : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
+                    : `https://tlinkbackendserver.onrender.com/images/defaultCover.jpg`
                 }
                 className="img-fluid "
                 alt="profile-img"
@@ -235,7 +240,7 @@ const EventsCard = ({
             {accepted === "waiting" ? (
               <>
                 <Button
-                  variant="primary"
+                  variant="danger"
                   className="d-block w-50 mt-3"
                   onClick={() => accepteActivity(id)}
                 >

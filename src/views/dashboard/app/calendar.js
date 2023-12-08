@@ -87,7 +87,7 @@ const Calendar =() =>{
                                             <h4 className="card-title">Book Appointment</h4>
                                         </div>
                                         <div className="card-header-toolbar d-flex align-items-center mt-1 mt-md-0">
-                                            <Link to="#" className="btn btn-primary d-flex align-items-center">
+                                            <Link to="#" className="btn btn-danger d-flex align-items-center">
                                                 <i className="material-symbols-outlined me-1 md-18">add</i>Book Appointment
                                             </Link>
                                         </div>

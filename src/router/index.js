@@ -3,13 +3,20 @@ import React from "react";
 //layoutpages
 import Default from "../layouts/dashboard/default";
 
-import { DefaultRouter } from "./default-router";
-import { Layout1Router } from "./layout1-router";
+import { ChapterRouteProtected } from "./Chapter-route";
+import { AdminRouteProtected } from "./admin-router";
+import { ChatRouter } from "./chat-router";
+import { DefaultRouteProtected } from "./default-router";
 
 export const IndexRouters = [
   {
     path: "/",
     element: <Default />,
-    children: [...DefaultRouter, ...Layout1Router],
+    children: [
+      ...DefaultRouteProtected,
+      ...AdminRouteProtected,
+      ...ChapterRouteProtected,
+      ...ChatRouter,
+    ],
   },
 ];

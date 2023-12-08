@@ -66,7 +66,7 @@ export const DefaultRouter = [
     element: <UserAccountSetting />,
   },
   {
-    path: "/user-profile-edit",
+    path: "/user-profile-edit/:id",
     element: <UserProfileEdit />,
   },
 ];

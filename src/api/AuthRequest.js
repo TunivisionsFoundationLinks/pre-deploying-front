@@ -1,10 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 const API = axios.create({
-  baseURL: "https://tlinkbackendserver.onrender.com",
+  baseURL: process.env.SERVER_URL,
   withCredentials: true,
 });
-export async function register(FormData) {
+export const register = async (FormData) => {
   try {
     const response = await API.post("/auth/register", FormData, {
       headers: {
@@ -24,6 +24,7 @@ export async function register(FormData) {
       progress: undefined,
       theme: "light",
     });
+
     return response;
   } catch (error) {
     toast.error(error.message, {
@@ -38,7 +39,7 @@ export async function register(FormData) {
     });
     throw error;
   }
-}
+};
 export const login = async (FormData) =>
   await API.post("/auth/login", FormData, {
     headers: {

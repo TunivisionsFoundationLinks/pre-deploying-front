@@ -61,30 +61,6 @@ const DataTableComponents = () => {
     queryFn: fetchUsers,
   });
 
-  isLoading &&
-    toast.info("loading...", {
-      position: "bottom-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Flip,
-    });
-  isError &&
-    toast.error(isError.message, {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Flip,
-    });
   const [filters, setFilters] = useState(data);
 
   const handleFilter = (e) => {

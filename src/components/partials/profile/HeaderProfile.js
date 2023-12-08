@@ -1,7 +1,8 @@
 import { useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Following, unfollow } from "../../../api/UserRequest";
 
 const HeaderProfile = ({
   id,
@@ -17,21 +18,34 @@ const HeaderProfile = ({
   const token = JSON.parse(localStorage.getItem("userInfo")).token;
   const QueryClient = useQueryClient();
   const userId = userInfo.user._id;
-  const followUser = async () => {
-    await fetch(`https://tlinkbackendserver.onrender.com/user/follow/${id}`, {
-      method: "put",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Breare " + token,
-      },
-      body: JSON.stringify({
-        id: id,
-        userId: userId,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+  const [isFollowing, setIsFollowing] = useState(follower?.includes(id));
+  const data = {
+    id: id,
+    userId: userId,
   };
+  const toggleFollow = async () => {
+    if (isFollowing) {
+      // Unfollow user
+      const response = await unfollow(data);
+      setIsFollowing(false);
+      QueryClient.invalidateQueries(["profile", data.id]);
+
+      return response;
+    } else {
+      // Follow user
+      const response = await Following(data);
+      setIsFollowing(true);
+      QueryClient.invalidateQueries(["profile", data.id]);
+      return response;
+    }
+  };
+  useEffect(() => {
+    if (isFollowing) {
+      setIsFollowing(true);
+    } else {
+      setIsFollowing(false);
+    }
+  }, []);
 
   return (
     <>
@@ -83,89 +97,29 @@ const HeaderProfile = ({
               </li>
               <li className="text-center ps-3">
                 <h6>Followers</h6>
-                <p className="mb-0">{follower}</p>
+                <p className="mb-0">{follower?.length}</p>
               </li>
               <li className="text-center ps-3">
                 <h6>Following</h6>
-                <p className="mb-0">{following}</p>
+                <p className="mb-0">{following?.length}</p>
               </li>
             </ul>
           </div>
         </div>
         <div className="profile-info p-5 d-flex align-items-center justify-content-between position-relative">
-          {/* <div className="social-links">
-                        <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                            <li className="text-center pe-3">
-                                <Link to="#">
-                                    <img
-                                        loading="lazy"
-                                        src={img3}
-                                        className="img-fluid rounded"
-                                        alt="facebook"
-                                    />
-                                </Link>
-                            </li>
-                            <li className="text-center pe-3">
-                                <Link to="#">
-                                    <img
-                                        loading="lazy"
-                                        src={img4}
-                                        className="img-fluid rounded"
-                                        alt="Twitter"
-                                    />
-                                </Link>
-                            </li>
-                            <li className="text-center pe-3">
-                                <Link to="">
-                                    <img
-                                        loading="lazy"
-                                        src={img5}
-                                        className="img-fluid rounded"
-                                        alt="Instagram"
-                                    />
-                                </Link>
-                            </li>
-                            <li className="text-center pe-3">
-                                <Link to="#">
-                                    <img
-                                        loading="lazy"
-                                        src={img6}
-                                        className="img-fluid rounded"
-                                        alt="Google plus"
-                                    />
-                                </Link>
-                            </li>
-                            <li className="text-center pe-3">
-                                <Link to="#">
-                                    <img
-                                        loading="lazy"
-                                        src={img7}
-                                        className="img-fluid rounded"
-                                        alt="You tube"
-                                    />
-                                </Link>
-                            </li>
-                            <li className="text-center md-pe-3 pe-0">
-                                <Link to="#">
-                                    <img
-                                        loading="lazy"
-                                        src={img8}
-                                        className="img-fluid rounded"
-                                        alt="linkedin"
-                                    />
-                                </Link>
-                            </li>
-                        </ul>
-                    </div> */}
           {id !== userId && (
             <div className="buttons-info d-flex align-items-center">
               <button
                 type="button"
-                onClick={() => followUser()}
-                className="btn btn-primary ms-2 btn-sm d-flex align-items-center"
+                onClick={toggleFollow}
+                className={`btn btn-danger ms-2 btn-sm d-flex align-items-center ${
+                  isFollowing ? "btn-unfollow" : ""
+                }`}
               >
-                <span className="material-symbols-outlined  md-16">add</span>
-                Follow
+                <span className="material-symbols-outlined  md-16">
+                  {isFollowing ? "remove" : "add"}
+                </span>
+                {isFollowing ? "Unfollow" : "Follow"}
               </button>
             </div>
           )}
@@ -174,7 +128,7 @@ const HeaderProfile = ({
               <Link to={`/user-profile-edit/` + id}>
                 <button
                   type="button"
-                  className="btn btn-primary ms-2 btn-sm d-flex align-items-center"
+                  className="btn btn-danger ms-2 btn-sm d-flex align-items-center"
                 >
                   <span className="material-symbols-outlined  md-16">
                     <span className="material-icons-outlined">edit</span>
@@ -182,7 +136,6 @@ const HeaderProfile = ({
                   Update
                 </button>
               </Link>
-              {/* if profile owner show "update" else if friend profile show "Ajouter" ans "Message" */}
             </div>
           )}
         </div>

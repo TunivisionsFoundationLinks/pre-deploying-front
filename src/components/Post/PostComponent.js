@@ -8,8 +8,7 @@ import CustomToggle from "../dropdowns";
 import user10 from "../../assets/images/user/04.jpg";
 import user11 from "../../assets/images/user/02.jpg";
 import user12 from "../../assets/images/user/03.jpg";
-import user13 from "../../assets/images/user/01.jpg";
-import user14 from "../../assets/images/user/01.jpg";
+
 
 import img2 from "../../assets/images/page-img/52.jpg";
 import icon1 from "../../assets/images/icon/01.png";

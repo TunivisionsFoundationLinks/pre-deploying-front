@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://tlinkbackendserver.onrender.com",
+  baseURL: process.env.SERVER_URL,
+  withCredentials: true,
 });
 
 export async function getChapter() {
@@ -43,10 +44,10 @@ export async function CreateChapter(data) {
   try {
     const response = await api.post(`/Chapters/`, data, {
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST",
       },
@@ -54,5 +55,22 @@ export async function CreateChapter(data) {
     return response.data;
   } catch (error) {
     throw error;
+  }
+}
+export async function AddBureauChapter(data) {
+  try {
+    const response = await api.put("/Chapters/addM", data, {
+      headers: {
+        Authorization: `Bearer ${
+          JSON.parse(localStorage.getItem("userInfo")).token
+        }`,
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "PUT",
+      },
+    });
+    return response;
+  } catch (error) {
+    throw new error();
   }
 }

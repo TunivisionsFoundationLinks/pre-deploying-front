@@ -1,54 +1,60 @@
-.nav-link{
-    color: var(--#{$variable-prefix}primary);
-    &:hover, &:focus {
-        color: var(--#{$variable-prefix}primary);
-    }
+.nav-link {
+  color: var(--#{$variable-prefix}danger);
+  &:hover,
+  &:focus {
+    color: var(--#{$variable-prefix}danger);
+  }
 }
-.nav-tabs{
-    .nav-link{
-        &.active{
-            color:var(--#{$variable-prefix}white);
-            background-color: var(--#{$variable-prefix}primary);
-            border-color: var(--#{$variable-prefix}primary);
-            @if($nav-tabs-shadow){
-                box-shadow: 0 0.125rem 0.25rem rgba(var(--#{$variable-prefix}primary-rgb), 0.3);
-            }
-        }
+.nav-tabs {
+  .nav-link {
+    &.active {
+      color: var(--#{$variable-prefix}white);
+      background-color: var(--#{$variable-prefix}danger);
+      border-color: var(--#{$variable-prefix}danger);
+      @if ($nav-tabs-shadow) {
+        box-shadow: 0
+          0.125rem
+          0.25rem
+          rgba(var(--#{$variable-prefix}danger-rgb), 0.3);
+      }
     }
-    &.nav-slider{
-        .nav-link{
-            &.active{
-                @if($nav-tabs-shadow){
-                    box-shadow: 0 0.125rem 0.25rem rgba(var(--#{$variable-prefix}primary-rgb), 0);
-                }
-            }
+  }
+  &.nav-slider {
+    .nav-link {
+      &.active {
+        @if ($nav-tabs-shadow) {
+          box-shadow: 0
+            0.125rem
+            0.25rem
+            rgba(var(--#{$variable-prefix}danger-rgb), 0);
         }
+      }
     }
+  }
 }
 
 // .nav-pills {
 //     .nav-link{
 //         &.active{
 //             color: var(--#{$variable-prefix}white);
-//             background-color: var(--#{$variable-prefix}primary);
+//             background-color: var(--#{$variable-prefix}danger);
 //         }
 //     }
 // }
-.nav-slider{
-    position: relative;
-    .nav-link{
-        &.active {
-            background-color: transparent;
-        }
+.nav-slider {
+  position: relative;
+  .nav-link {
+    &.active {
+      background-color: transparent;
     }
-    .nav-item {
-        z-index: 3;
-    }
-    .nav-slider-thumb {
-        z-index: 1 !important;
-        width: 100%;
-        color: var(--#{$variable-prefix}primary);
-        background: var(--#{$variable-prefix}primary);
-    }
+  }
+  .nav-item {
+    z-index: 3;
+  }
+  .nav-slider-thumb {
+    z-index: 1 !important;
+    width: 100%;
+    color: var(--#{$variable-prefix}danger);
+    background: var(--#{$variable-prefix}danger);
+  }
 }
-

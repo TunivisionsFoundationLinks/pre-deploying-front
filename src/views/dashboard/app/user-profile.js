@@ -122,8 +122,8 @@ const UserProfile = () => {
                   lastname={user?.lastname}
                   coverPicture={user?.coverPicture}
                   profilePicture={user?.profilePicture}
-                  follower={user?.followers.length}
-                  following={user?.following.length}
+                  follower={user?.followers}
+                  following={user?.following}
                   points={user?.points}
                 />
               </Card.Body>

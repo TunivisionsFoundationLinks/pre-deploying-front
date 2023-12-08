@@ -1,11 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { Button, Card, Dropdown, Form, Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Card, Form, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import img1 from "../../assets/images/small/07.png";
-import img2 from "../../assets/images/page-img/52.jpg";
 
 const FromPost = (data) => {
   const [show, setShow] = useState(false);
@@ -62,7 +60,7 @@ const FromPost = (data) => {
         <hr></hr>
         <ul className=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
           <li className="me-3 mb-md-0 mb-2">
-            <Link to="#" className="btn btn-soft-primary">
+            <Link to="#" className="btn btn-soft-danger">
               <img src={img1} alt="icon" className="img-fluid me-2" />{" "}
               Photo/Video
             </Link>
@@ -145,7 +143,7 @@ const FromPost = (data) => {
           </ul>
           <hr />
 
-          <button type="submit" className="btn btn-primary d-block w-100 mt-3">
+          <button type="submit" className="btn btn-danger d-block w-100 mt-3">
             Post
           </button>
         </Modal.Body>

@@ -158,7 +158,7 @@
 }
 .top-nav-bottom {
   margin-left: 16.25rem;
-  border-top: 1px solid rgba(var(--#{$variable-prefix}primary-rgb), 0.2);
+  border-top: 1px solid rgba(var(--#{$variable-prefix}danger-rgb), 0.2);
 }
 .topnav-toolbar {
   li {
@@ -175,8 +175,8 @@
   }
   li.active {
     a {
-      background: rgba(var(--#{$variable-prefix}primary-rgb), 0.2);
-      color: var(--#{$variable-prefix}primary);
+      background: rgba(var(--#{$variable-prefix}danger-rgb), 0.2);
+      color: var(--#{$variable-prefix}danger);
     }
   }
   ul {
@@ -289,8 +289,7 @@
         padding: 1rem;
         line-height: normal;
         color: inherit;
-        border-bottom: 1px solid
-          rgba(var(--#{$variable-prefix}primary-rgb), 0.2);
+        border-bottom: 1px solid rgba(var(--#{$variable-prefix}danger-rgb), 0.2);
         display: inline-block;
         width: 100%;
       }
@@ -322,8 +321,8 @@
     width: 18.75rem;
     height: 4.688rem;
     padding: 0 0.938rem;
-    border: 1px solid rgba(var(--#{$variable-prefix}primary-rgb), 0.2);
-    background-color: rgba(var(--#{$variable-prefix}primary-rgb), 0.2);
+    border: 1px solid rgba(var(--#{$variable-prefix}danger-rgb), 0.2);
+    background-color: rgba(var(--#{$variable-prefix}danger-rgb), 0.2);
     @include opacity-mixin(1);
     @if $enable-rounded == true {
       @include radius-mixin($border-radius);
@@ -573,7 +572,7 @@
 }
 /*user dropdown */
 .iq-bg-primary-hover:hover {
-  background: rgba(var(--#{$variable-prefix}primary-rgb), 0.1);
+  background: rgba(var(--#{$variable-prefix}danger-rgb), 0.1);
 }
 .iq-bg-warning-hover:hover {
   background: rgba($warning, 0.1);
@@ -581,7 +580,7 @@
 .iq-bg-info-hover:hover {
   background: rgba($info, 0.1);
 }
-.iq-bg-danger-hover:hover {
+.iq-bg-primary-hover:hover {
   background: rgba($danger, 0.1);
 }
 
@@ -603,7 +602,7 @@
       a {
         color: $headings-color;
         &.active {
-          color: $primary;
+          color: $danger;
         }
       }
     }

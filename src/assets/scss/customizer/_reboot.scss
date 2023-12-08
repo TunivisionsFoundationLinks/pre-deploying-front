@@ -1,6 +1,6 @@
-a{
-    color: var(--#{$variable-prefix}primary);
-    &:hover{
-        color: var(--#{$variable-prefix}primary-shade-20);
-    }
+a {
+  color: var(--#{$variable-prefix}danger);
+  &:hover {
+    color: var(--#{$variable-prefix}danger-shade-20);
+  }
 }

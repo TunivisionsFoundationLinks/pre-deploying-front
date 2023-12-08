@@ -53,7 +53,7 @@ const FsLightbox = ReactFsLightbox.default
 
 const FriendProfile = ({ users }) => {
   const { _id } = useParams();
-  const [first, setfirst] = useState()
+  const [first, setfirst] = useState();
 
   const [imageController, setImageController] = useState({
     toggler: false,
@@ -71,8 +71,8 @@ const FriendProfile = ({ users }) => {
       return {
         queryKey: ["user", _id],
         queryFn: () => FetchOneUser(_id),
-      }
-    })
+      };
+    }),
   });
 
   // isLoading &&
@@ -191,16 +191,18 @@ const FriendProfile = ({ users }) => {
                     <div className="buttons-info d-flex align-items-center">
                       <button
                         type="button"
-                        className="btn btn-primary ms-2 btn-sm d-flex align-items-center"
+                        className="btn btn-danger ms-2 btn-sm d-flex align-items-center"
                       >
                         <span className="material-symbols-outlined  md-16">
-                          <span className="material-icons-outlined">person_add</span>
+                          <span className="material-icons-outlined">
+                            person_add
+                          </span>
                         </span>
                         Add
                       </button>
                       <button
                         type="button"
-                        className="btn btn-primary ms-2 btn-sm d-flex align-items-center"
+                        className="btn btn-danger ms-2 btn-sm d-flex align-items-center"
                       >
                         <span className="material-symbols-outlined  md-16">
                           send
@@ -209,7 +211,6 @@ const FriendProfile = ({ users }) => {
                       </button>
                     </div>
                   </div>
-
                 </div>
               </Card.Body>
             </Card>
@@ -485,7 +486,6 @@ const FriendProfile = ({ users }) => {
               </Card>
             </Col>
             <Col lg={8}>
-
               <Card>
                 <Card.Body>
                   <div className="post-item">

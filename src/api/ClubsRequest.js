@@ -41,10 +41,10 @@ export async function CreateClub(data) {
   try {
     const response = await api.post(`/Clubs/`, data, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${
           JSON.parse(localStorage.getItem("userInfo")).token
         }`,
+        "Content-Type": "multipart/form-data",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST",
       },
@@ -121,6 +121,6 @@ export async function requestJoinIn(data) {
     });
     return response;
   } catch (error) {
-    return error.message;
+    throw new error();
   }
 }

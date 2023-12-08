@@ -1,31 +1,27 @@
 import { useState } from "react";
 import {
-  Row,
+  Button,
   Col,
   Container,
   Form,
-  Button,
   Image,
-  TabPane,
+  Row,
   TabContent,
+  TabPane,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
 //swiper
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Autoplay } from "swiper";
+import SwiperCore, { Autoplay, Navigation } from "swiper";
 
 // Import Swiper styles
 import "swiper/swiper-bundle.min.css";
 // import 'swiper/components/navigation/navigation.scss';
 
 //img
-import logo from "../../../assets/images/logo.png";
-import login1 from "../../../assets/images/login/1.jpg";
-import login2 from "../../../assets/images/login/2.png";
-import login3 from "../../../assets/images/login/3.png";
-import { register } from "../../../api/AuthRequest";
 import { Formik } from "formik";
+import { register } from "../../../api/AuthRequest";
+import logo from "../../../assets/images/logo.png";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Autoplay]);
@@ -143,7 +139,6 @@ const SignUp = () => {
     },
   ];
   const [show, AccountShow] = useState("A");
-
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     const inputValue = type === "checkbox" ? checked : value;
@@ -165,36 +160,14 @@ const SignUp = () => {
       formData.append("profilePicture", values.profilePicture);
       formData.append("coverPicture", values.coverPicture);
       const response = await register(values);
-      history("/");
+      history("/Login");
       return response;
     } catch (error) {
-      console.log(error);
-      throw error;
+      throw new error();
     } finally {
       setSubmitting(false);
     }
   };
-  // const handleRegister = (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("coverPicture", inputs.coverPicture);
-  //   formData.append("profilePicture", inputs.profilePicture);
-  //   // if there is an image with post
-  //   if (inputs.profilePicture && inputs.coverPicture) {
-  //     const coverPicture = Date.now() + inputs.coverPicture;
-  //     const profilePicture = Date.now() + inputs.profilePicture;
-  //     inputs.coverPicture = coverPicture;
-  //     inputs.profilePicture = profilePicture;
-
-  //     try {
-  //       dispatch(uploadImage(coverPicture, profilePicture));
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  //   dispatch(register({ inputs, history }));
-  // };
-  // console.log(inputs);
   return (
     <>
       <section className="sign-in-page">
@@ -221,7 +194,7 @@ const SignUp = () => {
             <Col md="6" className="bg-white pt-5 pt-5 pb-lg-0 ">
               <div className="sign-in-from">
                 <h2 className="mb-0">Sign Up</h2>
-                <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                <Formik initialValues={inputs} onSubmit={handleSubmit}>
                   {({
                     isSubmitting,
                     handleSubmit,
@@ -255,6 +228,7 @@ const SignUp = () => {
                                 placeholder="Your First Name"
                                 name="firstname"
                                 onChange={handleChange}
+                                required="required"
                               />
                             </Form.Group>
                             <Form.Group className="form-group">
@@ -266,6 +240,7 @@ const SignUp = () => {
                                 placeholder="Your Last Name"
                                 name="lastname"
                                 onChange={handleChange}
+                                required="required"
                               />
                             </Form.Group>
                             <Form.Group className="form-group">
@@ -277,6 +252,7 @@ const SignUp = () => {
                                 placeholder="Enter email"
                                 name="email"
                                 onChange={handleChange}
+                                required
                               />
                             </Form.Group>
                             <Form.Group className="form-group">
@@ -288,7 +264,8 @@ const SignUp = () => {
                                 placeholder="Password"
                                 name="password"
                                 onChange={handleChange}
-                              />
+                                required
+                              />{" "}
                             </Form.Group>
                             <Form.Group className="form-group">
                               <Form.Control
@@ -298,6 +275,7 @@ const SignUp = () => {
                                 placeholder="Confirm Password"
                                 name="ConfirmPassword"
                                 onChange={handleChange}
+                                required
                               />
                             </Form.Group>
                             <Form.Group className="form-group">
@@ -316,7 +294,7 @@ const SignUp = () => {
                               </Form.Select>
                             </Form.Group>
                             <Button
-                              className="btn-primary float-end"
+                              className="btn-danger float-end"
                               data-enchanter="next"
                               onClick={() => AccountShow("Account")}
                             >
@@ -347,6 +325,7 @@ const SignUp = () => {
                                 <Form.Group className="form-group">
                                   <Form.Label>Gender: *</Form.Label>
                                   <Form.Check
+                                    required="required"
                                     className="form-check"
                                     name="gender"
                                     onChange={handleChange}
@@ -388,6 +367,7 @@ const SignUp = () => {
                                       )
                                     }
                                     type="file"
+                                    required="required"
                                     name="profilePicture"
                                     accept="image/*"
                                   />
@@ -403,6 +383,7 @@ const SignUp = () => {
                                     }
                                     type="file"
                                     name="coverPicture"
+                                    required="required"
                                     accept="image/*"
                                   />
                                 </Form.Group>
@@ -416,11 +397,9 @@ const SignUp = () => {
                                 Previous
                               </Button>
                               <Button
-                                variant="primary"
+                                variant="danger"
                                 className="float-end"
                                 type="submit"
-                                data-enchanter="next"
-                                onSubmit={handleSubmit}
                               >
                                 {isSubmitting ? "isSubmitting ..." : "register"}
                               </Button>

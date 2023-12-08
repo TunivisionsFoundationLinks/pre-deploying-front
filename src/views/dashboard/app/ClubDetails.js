@@ -1,58 +1,30 @@
 import React, { useState } from "react";
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Dropdown,
   Button,
-  Modal,
-  OverlayTrigger,
-  Tooltip,
+  Card,
+  Col,
+  Container,
   Form,
   Image,
-  DropdownButton,
+  Modal,
+  Row,
 } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import CustomToggle from "../../../components/dropdowns";
-import ShareOffcanvas from "../../../components/share-offcanvas";
 
 //image
 
-import user9 from "../../../assets/images/user/1.jpg";
-import img5 from "../../../assets/images/user/1.jpg";
-import small1 from "../../../assets/images/small/07.png";
-import small2 from "../../../assets/images/small/08.png";
-import small3 from "../../../assets/images/small/09.png";
-import small4 from "../../../assets/images/small/10.png";
-import small5 from "../../../assets/images/small/11.png";
-import small6 from "../../../assets/images/small/12.png";
-import small7 from "../../../assets/images/small/13.png";
-import small8 from "../../../assets/images/small/14.png";
-import img6 from "../../../assets/images/user/04.jpg";
-import img7 from "../../../assets/images/page-img/52.jpg";
-import img8 from "../../../assets/images/user/04.jpg";
-import img9 from "../../../assets/images/page-img/60.jpg";
-import img10 from "../../../assets/images/user/02.jpg";
-import img11 from "../../../assets/images/user/03.jpg";
-import icon1 from "../../../assets/images/icon/01.png";
-import icon2 from "../../../assets/images/icon/02.png";
-import icon3 from "../../../assets/images/icon/03.png";
-import icon4 from "../../../assets/images/icon/04.png";
-import icon5 from "../../../assets/images/icon/05.png";
-import icon6 from "../../../assets/images/icon/06.png";
-import icon7 from "../../../assets/images/icon/07.png";
 import { useQuery } from "@tanstack/react-query";
-import { getOneClub, requestJoinIn } from "../../../api/ClubsRequest";
-import ClubHeader from "../../../components/partials/profile/HeaderClub";
+import { Formik } from "formik";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Flip, toast } from "react-toastify";
-import { Formik } from "formik";
-import { FetchOneUser } from "../../../api/UserRequest";
-import PostForm from "../../../components/Posts/PostForm";
+import { getOneClub, requestJoinIn } from "../../../api/ClubsRequest";
 import { getAllPostes } from "../../../api/PostRequest";
-import { useEffect } from "react";
+import { FetchOneUser } from "../../../api/UserRequest";
 import PostDetailsCard from "../../../components/Posts/PostDetailsCard";
+import PostForm from "../../../components/Posts/PostForm";
+import ClubHeader from "../../../components/partials/profile/HeaderClub";
+import UpdateBureauCard from "../../../components/updateBurauCard";
 
 const ClubDetailsPage = () => {
   const [show, setShow] = useState(false);
@@ -72,9 +44,41 @@ const ClubDetailsPage = () => {
   });
   const { userInfo } = useSelector((state) => state.user);
   const userid = userInfo.user._id;
-  const findUser = Club?.otherDetails?.Bureau?.filter(
+  const findUser = Club?.data.otherDetails?.Bureau?.filter(
     (user) => user.membres === userid
   );
+  const BoardMembers = ({ idMember, role, departement }) => {
+    const { data: UserInfos } = useQuery({
+      queryKey: ["UserInfo", idMember],
+      queryFn: async () => await FetchOneUser(idMember),
+    });
+    return (
+      <Link to={`/profile/${id}`}>
+        <li className="mb-3">
+          <div className="d-flex align-items-center">
+            <div className="flex-shrink-0">
+              <Image
+                src={
+                  UserInfos?.profilePicture
+                    ? `http://localhost:5000/images/${UserInfos?.profilePicture}`
+                    : `http://localhost:5000/images/defaultProfile.png`
+                }
+                className="rounded-circle avatar-50 align-items-center"
+                alt="Responsive image"
+              />
+            </div>
+            <div className="flex-grow-1 ms-3 align-items-center">
+              <h6 className="h4">
+                {" "}
+                {UserInfos?.firstname + " " + UserInfos?.lastname}
+              </h6>
+              <p className="mb-0">{role + " " + departement}</p>
+            </div>
+          </div>
+        </li>
+      </Link>
+    );
+  };
   const initialValues = {
     id: id,
     userid: userInfo.user._id,
@@ -98,14 +102,14 @@ const ClubDetailsPage = () => {
       id: 4,
     },
   ];
+  const [UserRole, setUserRole] = useState(findUser ? findUser[0] : null);
 
   const [inputs, setInputs] = useState({ ...initialValues });
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       // You can directly use the 'values' object that Formik provides.
       const response = await requestJoinIn(values); // Do something with the response if needed
-
-      handleModaleClose(); // Close the modal after submitting the form
+      return response;
     } catch (error) {
       error &&
         toast.error(error.message, {
@@ -121,11 +125,13 @@ const ClubDetailsPage = () => {
         });
     } finally {
       setSubmitting(false);
+      handleModaleClose(); // Close the modal after submitting the form
     }
   };
+
   const President = findUser?.role === "President";
   const VP = findUser?.role === "Vice President";
-  const AVP = findUser?.role === "President";
+  const AVP = findUser?.role === "Assistant";
   const Markting = findUser?.Departement === "Marketing";
   const Events = findUser?.Departement === "Events";
   const Sponsoring = findUser?.Departement === "Sponsoring";
@@ -155,30 +161,36 @@ const ClubDetailsPage = () => {
       progress: undefined,
       theme: "light",
     });
-  const Clubid = userInfo.user.Club;
   const getUser = useQuery({
     queryKey: ["userdetails", userid],
     queryFn: async () => await FetchOneUser(userid),
   });
+  const Clubid = getUser.data?.club;
   const { data } = useQuery({
     queryKey: ["Posts"],
     queryFn: getAllPostes,
   });
   const reversedData = [...(data?.data || [])].reverse();
   const [Posters, setPosters] = useState(reversedData);
+
+  const requeste = getUser.data?.request;
+  const adminState = getUser.data?.isAdmin;
+  const BureauState = getUser.data?.isBureau;
+  const getClubChapterId = Club?.data?.otherDetails?.ChapterId;
+  const getUserChapterId = getUser.data?.Chapter;
+
   useEffect(() => {
     setPosters(reversedData);
   }, [reversedData]);
-  const requeste = getUser.data?.request;
   return (
     <>
       <ClubHeader
         img={
-          Club?.otherDetails?.coverImage
-            ? `${Club?.otherDetails?.coverImage}`
+          Club?.data.otherDetails?.coverImage
+            ? `${Club?.data.otherDetails?.coverImage}`
             : "defaultCover.jpg"
         }
-        title={Club?.otherDetails?.ClubName}
+        title={Club?.data.otherDetails?.ClubName}
       />
       <div id="content-page" className="content-page">
         <Container>
@@ -192,20 +204,20 @@ const ClubDetailsPage = () => {
                       <img
                         className="rounded-circle img-fluid avatar-100"
                         src={
-                          Club?.otherDetails?.profileImage
-                            ? "https://tlinkbackendserver.onrender.com/images/" +
-                              Club?.otherDetails?.profileImage
-                            : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
+                          Club?.data.otherDetails?.profileImage
+                            ? `http://localhost:5000/images/${Club?.data.otherDetails?.profileImage}` +
+                              Club?.data.otherDetails?.profileImage
+                            : `http://localhost:5000/images/defaultProfile.png`
                         }
                         alt="profileImage"
                       />
                     </div>
                     <div className="info">
-                      <h4>{Club?.otherDetails?.ClubName}</h4>
+                      <h4>{Club?.data.otherDetails?.ClubName}</h4>
                       <p className="mb-0">
                         <i className="ri-lock-fill pe-2"></i>welcome to our
                         family . we are proud to have{" "}
-                        {Club?.otherDetails?.Tunimateurs?.length + " "}
+                        {Club?.data.otherDetails?.Tunimateurs?.length + " "}
                         Tunimateurs
                       </p>
                     </div>
@@ -216,19 +228,20 @@ const ClubDetailsPage = () => {
                 lg={5}
                 className="d-flex justify-content-evenly align-items-center mr-2"
               >
-                {Clubid === id ? (
-                  <Button className="btn btn-primary d-block w-auto h-25">
+                {Clubid !== id && (
+                  <Button className="btn btn-danger d-block w-auto h-25">
                     follow
                   </Button>
-                ) : (
+                )}
+                {!Clubid && (
                   <>
                     <Button
-                      className="btn btn-primary w-auto h-25"
+                      className="btn btn-danger w-auto h-25"
                       onClick={handleModaleShow}
                     >
                       request to join
                     </Button>
-                    <Button className="btn btn-primary w-auto h-25">
+                    <Button className="btn btn-danger w-auto h-25">
                       follow
                     </Button>
                   </>
@@ -238,9 +251,13 @@ const ClubDetailsPage = () => {
             {/*   this part for publication */}
             <Col lg="8">
               <Col lg={12} className="row m-0 p-0">
-                <Col sm={12}>
-                  <PostForm id={id} />
-                </Col>
+                {VP & Markting || AVP & Markting || President ? (
+                  <Col sm={12}>
+                    <PostForm id={id} />
+                  </Col>
+                ) : (
+                  <></>
+                )}
                 {Posters?.filter((post) => post.createBy === id).map((post) => {
                   return (
                     <Col sm={12}>
@@ -254,7 +271,7 @@ const ClubDetailsPage = () => {
                 })}
               </Col>
               <Card>
-                <Card.Body>
+                {/* <Card.Body>
                   <div className="post-item">
                     <div className="user-post-data py-3">
                       <div className="d-flex justify-content-between">
@@ -1038,7 +1055,7 @@ const ClubDetailsPage = () => {
                       </form>
                     </div>
                   </div>
-                </Card.Body>
+                </Card.Body> */}
               </Card>
             </Col>
             {/* this page for activity of club */}
@@ -1050,47 +1067,76 @@ const ClubDetailsPage = () => {
                   </div>
                 </Card.Header>
                 <Card.Body>
+                  {(UserRole?.role === "President") &
+                  (UserRole?.Departement === "Club") &
+                  (Clubid === id) &
+                  (getUser.data?.isClub === true) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link to={`/Clubs/${id}/create-event`}>
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              card_membership
+                            </i>
+                          </div>
+                          <h6 className="mb-0">new Event</h6>
+                        </li>
+                      </Link>
+
+                      <Link to={`/Clubs/${id}/requests-list`}>
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              add_reaction
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Request new Tunimateurs</h6>
+                        </li>
+                      </Link>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(UserRole?.role === "Vice President" ||
+                    UserRole?.role === "Assistant") &
+                  (UserRole?.Departement === "Ressource Humaine") &
+                  (Clubid === id) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link to={`/Clubs/${id}/requests-list`}>
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              add_reaction
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Request new Tunimateurs</h6>
+                        </li>
+                      </Link>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(UserRole?.role === "Vice President" ||
+                    UserRole?.role === "Assistant") &
+                  (UserRole?.Departement === "Events") &
+                  (Clubid === id) &
+                  (getUser.data?.isClub === true) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link to={`/Clubs/${id}/create-event`}>
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              card_membership
+                            </i>
+                          </div>
+                          <h6 className="mb-0">new Event</h6>
+                        </li>
+                      </Link>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
                   <ul className="list-inline p-0 m-0">
-                    {President && (
-                      <Link to={`/Clubs/${id}/create-event`}>
-                        <li className="mb-3 d-flex align-items-center">
-                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
-                            <i className="material-symbols-outlined">
-                              card_membership
-                            </i>
-                          </div>
-                          <h6 className="mb-0">new Event</h6>
-                        </li>
-                      </Link>
-                    )}
-                    {VP & Events ? (
-                      <Link to={`/Clubs/${id}/create-event`}>
-                        <li className="mb-3 d-flex align-items-center">
-                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
-                            <i className="material-symbols-outlined">
-                              card_membership
-                            </i>
-                          </div>
-                          <h6 className="mb-0">new Event</h6>
-                        </li>
-                      </Link>
-                    ) : (
-                      <></>
-                    )}
-                    {AVP & Events ? (
-                      <Link to={`/Clubs/${id}/create-event`}>
-                        <li className="mb-3 d-flex align-items-center">
-                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
-                            <i className="material-symbols-outlined">
-                              card_membership
-                            </i>
-                          </div>
-                          <h6 className="mb-0">new Event</h6>
-                        </li>
-                      </Link>
-                    ) : (
-                      <></>
-                    )}
                     <Link to={`/Clubs/${id}/tunimateurs`}>
                       <li className="mb-3 d-flex align-items-center">
                         <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
@@ -1099,58 +1145,23 @@ const ClubDetailsPage = () => {
                         <h6 className="mb-0">Tunimateurs List</h6>
                       </li>
                     </Link>
-                    {President && (
-                      <>
-                        <Link to={`/Clubs/${id}/requests-list`}>
-                          <li className="mb-3 d-flex align-items-center">
-                            <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
-                              <i className="material-symbols-outlined">
-                                add_reaction
-                              </i>
-                            </div>
-                            <h6 className="mb-0">Request new Tunimateurs</h6>
-                          </li>
-                        </Link>
-                        <li>
-                          <button
-                            type="submit"
-                            className="btn btn-primary d-block w-100"
-                          >
-                            <i className="ri-add-line pe-2"></i>Create New
-                            Events
-                          </button>
-                        </li>
-                      </>
-                    )}
-                    {RH & AVP ? (
-                      <Link to={`/Clubs/${id}/requests-list`}>
-                        <li className="mb-3 d-flex align-items-center">
-                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
-                            <i className="material-symbols-outlined">
-                              add_reaction
-                            </i>
-                          </div>
-                          <h6 className="mb-0">Request new Tunimateurs</h6>
-                        </li>
-                      </Link>
-                    ) : (
-                      <></>
-                    )}
-                    {RH & VP ? (
-                      <Link to={`/Clubs/${id}/requests-list`}>
-                        <li className="mb-3 d-flex align-items-center">
-                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
-                            <i className="material-symbols-outlined">
-                              add_reaction
-                            </i>
-                          </div>
-                          <h6 className="mb-0">Request new Tunimateurs</h6>
-                        </li>
-                      </Link>
-                    ) : (
-                      <></>
-                    )}
+                    <Link to={`/Clubs/${id}/activityClub`}>
+                      <li className="mb-3 d-flex align-items-center">
+                        <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                          <i className="material-symbols-outlined">explore</i>
+                        </div>
+                        <h6 className="mb-0">Activity List</h6>
+                      </li>
+                    </Link>
                   </ul>
+                  {(getClubChapterId === getUserChapterId) & BureauState ||
+                  adminState ? (
+                    <UpdateBureauCard
+                      dataMembers={Club?.data.otherDetails?.Tunimateurs}
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </Card.Body>
               </Card>
               <Card>
@@ -1164,23 +1175,15 @@ const ClubDetailsPage = () => {
                     <li className="mb-3">
                       <p className="mb-0">Meet Our Board ...</p>
                     </li>
-                    <li className="mb-3">
-                      <div className="d-flex align-items-center">
-                        <div className="flex-shrink-0">
-                          <Image
-                            src={img10}
-                            className="rounded-circle align-items-center"
-                            alt="Responsive image"
-                          />
-                        </div>
-                        <div className="flex-grow-1 ms-3 align-items-center">
-                          <h6 className="h4">Private</h6>
-                          <p className="mb-0">
-                            Success in slowing economic activity.
-                          </p>
-                        </div>
-                      </div>
-                    </li>
+                    {Club?.data.otherDetails?.Bureau?.map((user) => {
+                      return (
+                        <BoardMembers
+                          idMember={user?.membres}
+                          role={user?.role}
+                          departement={user?.Departement}
+                        />
+                      );
+                    })}
                   </ul>
                 </Card.Body>
               </Card>

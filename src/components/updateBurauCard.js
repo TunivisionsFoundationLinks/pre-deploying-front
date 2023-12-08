@@ -5,7 +5,19 @@ import { Link, useParams } from "react-router-dom";
 import { addBureau } from "../api/ClubsRequest";
 import { useState } from "react";
 import { Flip, toast } from "react-toastify";
-
+import { FetchOneUser, fetchUsers } from "../api/UserRequest";
+import { useQuery } from "@tanstack/react-query";
+export const UserOption = ({ userid, index }) => {
+  const { data: Users } = useQuery({
+    queryKey: ["userClubs", userid],
+    queryFn: async () => await FetchOneUser(userid),
+  });
+  return (
+    <option key={index} value={userid}>
+      {Users?.firstname + " " + Users?.lastname}
+    </option>
+  );
+};
 const UpdateBureauCard = ({ dataMembers }) => {
   const { id } = useParams();
 
@@ -51,6 +63,7 @@ const UpdateBureauCard = ({ dataMembers }) => {
       id: 3,
     },
   ];
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -63,7 +76,7 @@ const UpdateBureauCard = ({ dataMembers }) => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       // You can directly use the 'values' object that Formik provides.
-      console.log(values);
+
       const response = await addBureau(values); // Do something with the response if needed
       handleClose(); // Close the modal after submitting the form
     } catch (error) {
@@ -83,6 +96,7 @@ const UpdateBureauCard = ({ dataMembers }) => {
       setSubmitting(false);
     }
   };
+
   return (
     <div>
       <Button onClick={handleShow}>choose the new Board</Button>
@@ -110,9 +124,7 @@ const UpdateBureauCard = ({ dataMembers }) => {
                   <Form.Select onChange={handleChange} name="userid">
                     <option>Choose the Tunimateur</option>
                     {dataMembers?.map((user, index) => (
-                      <option key={index} value={user._id}>
-                        {user.firstname + " " + user.lastname}
-                      </option>
+                      <UserOption userid={user?.membres} index={index} />
                     ))}
                   </Form.Select>
                 </Form.Group>
@@ -139,7 +151,7 @@ const UpdateBureauCard = ({ dataMembers }) => {
               </Modal.Body>
               <Modal.Footer>
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Submitting..." : "Join the Club"}
+                  {isSubmitting ? "Submitting..." : "New Board Member"}
                 </Button>
               </Modal.Footer>
             </Form>

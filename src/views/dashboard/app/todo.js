@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Row, Col, Container, Form, Dropdown, Collapse } from "react-bootstrap";
-import Card from "../../../components/Card";
+import { Col, Collapse, Container, Dropdown, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Card from "../../../components/Card";
 
 // img
 import user1 from "../../../assets/images/user/01.jpg";
@@ -73,7 +73,7 @@ const Todo = () => {
                                 to="#"
                                 className="d-flex align-items-center"
                               >
-                                <i className="material-symbols-outlined text-primary md-18 me-1">
+                                <i className="material-symbols-outlined text-danger md-18 me-1">
                                   fiber_manual_record{" "}
                                 </i>{" "}
                                 All Task{" "}
@@ -112,7 +112,7 @@ const Todo = () => {
                                 to="#"
                                 className="d-flex align-items-center"
                               >
-                                <i className="material-symbols-outlined text-primary md-18 me-1">
+                                <i className="material-symbols-outlined text-danger md-18 me-1">
                                   fiber_manual_record
                                 </i>{" "}
                                 Statistics{" "}
@@ -145,7 +145,7 @@ const Todo = () => {
                                 to="#"
                                 className="d-flex align-items-center"
                               >
-                                <i className="material-symbols-outlined filled text-primary md-18 me-1">
+                                <i className="material-symbols-outlined filled text-danger md-18 me-1">
                                   fiber_manual_record
                                 </i>
                                 All Task{" "}
@@ -183,7 +183,7 @@ const Todo = () => {
                                 to="#"
                                 className="d-flex align-items-center"
                               >
-                                <i className="material-symbols-outlined filled text-primary md-18 me-1">
+                                <i className="material-symbols-outlined filled text-danger md-18 me-1">
                                   fiber_manual_record
                                 </i>{" "}
                                 Statistics{" "}
@@ -216,7 +216,7 @@ const Todo = () => {
                                 to="#"
                                 className="d-flex align-items-center"
                               >
-                                <i className="material-symbols-outlined text-primary md-18 me-1">
+                                <i className="material-symbols-outlined text-danger md-18 me-1">
                                   fiber_manual_record{" "}
                                 </i>{" "}
                                 All Task{" "}
@@ -255,7 +255,7 @@ const Todo = () => {
                                 to="#"
                                 className="d-flex align-items-center"
                               >
-                                <i className="material-symbols-outlined text-primary md-18 me-1">
+                                <i className="material-symbols-outlined text-danger md-18 me-1">
                                   fiber_manual_record
                                 </i>{" "}
                                 Statistics{" "}
@@ -962,7 +962,7 @@ const Todo = () => {
                               </div>
                             </li>
                           </ul>
-                          <Link to="#" className="btn btn-primary d-block">
+                          <Link to="#" className="btn btn-danger d-block">
                             <i className="ri-add-line"></i> Load More
                           </Link>
                         </div>

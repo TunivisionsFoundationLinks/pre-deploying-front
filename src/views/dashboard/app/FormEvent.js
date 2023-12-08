@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Formik } from "formik";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -9,13 +11,11 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import { CreateEvent } from "../../../api/ActivityRequest";
+import { getClub, getOneClub } from "../../../api/ClubsRequest";
+import { fetchUsers } from "../../../api/UserRequest";
 import image1 from "../../../assets/images/page-img/img-success.png";
 import MultipleSelect from "../../../components/SelectGroup";
-import { Formik } from "formik";
-import { getClub, getOneClub } from "../../../api/ClubsRequest";
-import { useQuery } from "@tanstack/react-query";
-import { fetchUsers } from "../../../api/UserRequest";
-import { CreateEvent } from "../../../api/ActivityRequest";
 import MultipleUserSelect from "../../../components/SelectUsersGroup";
 
 const FormEvent = () => {
@@ -218,6 +218,7 @@ const FormEvent = () => {
                                     name="EventType"
                                     onChange={handleChange}
                                     aria-label="Regional"
+                                    variant="outline-danger"
                                     className="mx-2"
                                   />
                                   <Form.Label>Regional </Form.Label>
@@ -231,11 +232,28 @@ const FormEvent = () => {
                                     type="radio"
                                     value="Intern"
                                     name="EventType"
+                                    variant="outline-danger"
                                     onChange={handleChange}
                                     aria-label="Regional"
                                     className="mx-2"
                                   />
                                   <Form.Label>Intern </Form.Label>
+                                </Form.Group>
+                                <Form.Group
+                                  as={Col}
+                                  className="mb-3 d-flex justify-between align-center w-100"
+                                  controlId="formGridAddress1"
+                                >
+                                  <Form.Check
+                                    type="radio"
+                                    value="Extern"
+                                    name="EventType"
+                                    onChange={handleChange}
+                                    aria-label="Extern"
+                                    className="mx-2"
+                                    variant="outline-danger"
+                                  />
+                                  <Form.Label>Extern </Form.Label>
                                 </Form.Group>
                               </Form.Group>
                             </Col>

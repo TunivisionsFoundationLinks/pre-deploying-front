@@ -1,14 +1,13 @@
-import React from "react";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Formik } from "formik";
+import React, { useState } from "react";
 import { Button, Card, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import img1 from "../../assets/images/small/07.png";
-import { Formik } from "formik";
-import { CreatePost } from "../../api/PostRequest";
-import { useQuery } from "@tanstack/react-query";
-import { FetchOneUser } from "../../api/UserRequest";
 import { getOneClub } from "../../api/ClubsRequest";
+import { CreatePost } from "../../api/PostRequest";
+import { FetchOneUser } from "../../api/UserRequest";
+import img1 from "../../assets/images/small/07.png";
 
 const PostForm = ({ id }) => {
   let location = useLocation();
@@ -103,7 +102,7 @@ const PostForm = ({ id }) => {
         <hr></hr>
         <ul className=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
           <li className="me-3 mb-md-0 mb-2">
-            <Link to="#" className="btn btn-soft-primary">
+            <Link to="#" className="btn btn-soft-danger">
               <img src={img1} alt="icon" className="img-fluid me-2" />{" "}
               Photo/Video
             </Link>

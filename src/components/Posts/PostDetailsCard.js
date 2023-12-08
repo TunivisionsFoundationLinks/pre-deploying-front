@@ -7,26 +7,13 @@ import icon1 from "../../assets/images/icon/01.png";
 
 import { Link } from "react-router-dom";
 
-import ShareOffcanvas from "../share-offcanvas";
 import { useQuery } from "@tanstack/react-query";
-import { FetchOneUser } from "../../api/UserRequest";
-import { getOneClub } from "../../api/ClubsRequest";
 import { getOneChapter } from "../../api/ChapterRequest";
+import { getOneClub } from "../../api/ClubsRequest";
+import { FetchOneUser } from "../../api/UserRequest";
+import ShareOffcanvas from "../share-offcanvas";
 
 const PostDetailsCard = ({ createBy, Disc, files }) => {
-  const { data: users } = useQuery({
-    queryKey: ["Creator", createBy],
-    queryFn: async () => await FetchOneUser(createBy),
-  });
-  const { data: club } = useQuery({
-    queryKey: ["Club", createBy],
-    queryFn: async () => getOneClub(createBy),
-  });
-  const { data: Chapter } = useQuery({
-    queryKey: ["Club", createBy],
-    queryFn: async () => getOneChapter(createBy),
-  });
-
   const getFileType = (url) => {
     const fileExtension = url
       ?.substring(url.lastIndexOf(".") + 1)
@@ -42,76 +29,117 @@ const PostDetailsCard = ({ createBy, Disc, files }) => {
       return "unknown";
     }
   };
-  const getCreatorName = () => {
-    if (users) {
-      return (
-        <div className="user-post-data">
-          <div className="d-flex justify-content-between">
-            <div className="me-3 w-auto h-50">
-              <img
-                className="rounded-circle img-fluid avatar-50"
-                src={`https://tlinkbackendserver.onrender.com/images/${users?.profilePicture}`}
-                alt=""
-              />
-            </div>
-            <div className="w-100">
-              <Link to="#">
-                <h5 className="mb-0 d-inline-block">
-                  {users?.firstname + " " + users?.lastname}
-                </h5>
-              </Link>
-            </div>
-          </div>
-        </div>
-      );
-    } else if (club) {
-      return (
-        <div className="user-post-data">
-          <div className="d-flex justify-content-between">
-            <div className="me-3 w-auto h-50">
-              <img
-                className="rounded-circle img-fluid avatar-50"
-                src={`https://tlinkbackendserver.onrender.com/images/${club?.otherDetails?.profileImage}`}
-                alt=""
-              />
-            </div>
-            <div className="w-100">
-              <Link to="#">
-                <h5 className="mb-0 d-inline-block">
-                  {club?.otherDetails?.ClubName}
-                </h5>
-              </Link>
+  const GetCreatorName = (createBy) => {
+    const { data: users } = useQuery({
+      queryKey: ["Creator", createBy],
+      queryFn: async () => await FetchOneUser(createBy),
+    });
+    const { data: club } = useQuery({
+      queryKey: ["Club", createBy],
+      queryFn: async () => getOneClub(createBy),
+    });
+    const { data: Chapter } = useQuery({
+      queryKey: ["Club", createBy],
+      queryFn: async () => getOneChapter(createBy),
+    });
+    switch (createBy) {
+      case createBy === users?._id: {
+        return (
+          <div className="user-post-data">
+            <div className="d-flex justify-content-between">
+              <div className="me-3 w-auto h-50">
+                <img
+                  className="rounded-circle img-fluid avatar-50"
+                  src={`https://tlinkbackendserver.onrender.com/images/${users?.profilePicture}`}
+                  alt=""
+                />
+              </div>
+              <div className="w-100">
+                <Link to="#">
+                  <h5 className="mb-0 d-inline-block">
+                    {users?.firstname + " " + users?.lastname}
+                  </h5>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    } else if (Chapter) {
-      return (
-        <div className="user-post-data">
-          <div className="d-flex justify-content-between">
-            <div className="me-3 w-auto h-50">
-              <img
-                className="rounded-circle img-fluid avatar-50"
-                src={`https://tlinkbackendserver.onrender.com/images/${Chapter?.profileImage}`}
-                alt=""
-              />
-            </div>
-            <div className="w-100">
-              <Link to="#">
-                <h5 className="mb-0 d-inline-block">{Chapter.ChapterName}</h5>
-              </Link>
+        );
+      }
+      case createBy === club?.data?.otherDetails?._id: {
+        return (
+          <div className="user-post-data">
+            <div className="d-flex justify-content-between">
+              <div className="me-3 w-auto h-50">
+                <img
+                  className="rounded-circle img-fluid avatar-50"
+                  src={`https://tlinkbackendserver.onrender.com/images/${club?.data?.otherDetails?.profileImage}`}
+                  alt=""
+                />
+              </div>
+              <div className="w-100">
+                <Link to="#">
+                  <h5 className="mb-0 d-inline-block">
+                    {club?.data?.otherDetails?.ClubName}
+                  </h5>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    } else {
-      return "Unknown Creator";
+        );
+      }
+
+      case createBy === Chapter?._id: {
+        return (
+          <div className="user-post-data">
+            <div className="d-flex justify-content-between">
+              <div className="me-3 w-auto h-50">
+                <img
+                  className="rounded-circle img-fluid avatar-50"
+                  src={`https://tlinkbackendserver.onrender.com/images/${Chapter?.profileImage}`}
+                  alt=""
+                />
+              </div>
+              <div className="w-100">
+                <Link to="#">
+                  <h5 className="mb-0 d-inline-block">{Chapter.ChapterName}</h5>
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      }
+      default: {
+        return (
+          <div className="user-post-data">
+            <div className="d-flex justify-content-between">
+              <div className="me-3 w-auto h-50">
+                <img
+                  className="rounded-circle img-fluid avatar-50"
+                  src={
+                    users?.profilePicture
+                      ? `https://tlinkbackendserver.onrender.com/images/${users?.profilePicture}`
+                      : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
+                  }
+                  alt=""
+                />
+              </div>
+              <div className="w-100">
+                <Link to="#">
+                  <h5 className="mb-0 d-inline-block">
+                    {users?.firstname + " " + users?.lastname}
+                  </h5>
+                </Link>
+              </div>
+            </div>
+          </div>
+        );
+      }
     }
   };
   return (
     <Card className=" card-block card-stretch card-height">
       <Card.Body>
-        {getCreatorName()}
+        {GetCreatorName(createBy)}
         <div className="mt-3">
           <textarea
             className="border-0"

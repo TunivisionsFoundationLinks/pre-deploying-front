@@ -1,17 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
+import { Formik } from "formik";
 import React, { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { FetchOneUser } from "../api/UserRequest";
-import { addTunimateur } from "../api/ClubsRequest";
 import { Flip, toast } from "react-toastify";
-import { Formik } from "formik";
+import { addTunimateur } from "../api/ClubsRequest";
+import { FetchOneUser } from "../api/UserRequest";
 
 const RequestCard = ({ userid, Departement }) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ["userRequest", userid],
     queryFn: async () => await FetchOneUser(userid),
   });
+
   const { id } = useParams();
   const initialValues = {
     id: id,
@@ -40,6 +41,7 @@ const RequestCard = ({ userid, Departement }) => {
       setSubmitting(false);
     }
   };
+  console.log(userid);
   return (
     <Card className=" mb-0">
       <Formik initialValues={inputs} onSubmit={handleSubmit}>
@@ -50,9 +52,8 @@ const RequestCard = ({ userid, Departement }) => {
                 <img
                   src={
                     data?.coverPicture
-                      ? "https://tlinkbackendserver.onrender.com/images/" +
-                        data?.coverPicture
-                      : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
+                      ? `https://tlinkbackendserver.onrender.com/images/${data?.coverPicture}`
+                      : `https://tlinkbackendserver.onrender.com/images/defaultCover.jpg`
                   }
                   className="img-fluid bg-cover w-100"
                   style={{ height: "250px" }}
@@ -65,9 +66,8 @@ const RequestCard = ({ userid, Departement }) => {
                 <img
                   src={
                     data?.profilePicture
-                      ? "https://tlinkbackendserver.onrender.com/images/" +
-                        data?.profilePicture
-                      : " https://tlinkbackendserver.onrender.com/images/defaultProfile.png"
+                      ? `https://tlinkbackendserver.onrender.com/images/${data?.profilePicture}`
+                      : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                   }
                   alt="profile-img"
                   className="rounded-circle img-fluid avatar-120"
@@ -98,12 +98,13 @@ const RequestCard = ({ userid, Departement }) => {
             <Card.Footer className="w-100 d-flex justify-content-evenly gap-2">
               <Button
                 type="submit"
+                variant="danger"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Submitting..." : "Accept Canndidat"}
               </Button>
-              <Button className="w-50" variant="danger">
+              <Button className="w-50" variant="secondary">
                 reject
               </Button>
             </Card.Footer>

@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 
-const USER_URL = process.env.SERVER_URL || "https://localhost:5000";
+const USER_URL = process.env.SERVER_URL || "https://tlinkbackendserver.onrender.com";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

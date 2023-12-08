@@ -1,13 +1,13 @@
 .page-item {
-    &.active{
-        .page-link{
-            color:var(--#{$variable-prefix}white);
-            background-color: var(--#{$variable-prefix}primary);
-            border-color: var(--#{$variable-prefix}primary);
-        }
+  &.active {
+    .page-link {
+      color: var(--#{$variable-prefix}white);
+      background-color: var(--#{$variable-prefix}danger);
+      border-color: var(--#{$variable-prefix}danger);
     }
-    .page-link{
-        border-color: var(--#{$variable-prefix}primary-tint-80);
-        color: var(--#{$variable-prefix}primary);
-    }
+  }
+  .page-link {
+    border-color: var(--#{$variable-prefix}danger-tint-80);
+    color: var(--#{$variable-prefix}danger);
+  }
 }

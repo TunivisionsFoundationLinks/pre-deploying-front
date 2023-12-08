@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://tlinkbackendserver.onrender.com",
+  baseURL: process.env.SERVER_URL,
   withCredentials: true,
 });
 

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Modal, Form } from "react-bootstrap";
-import { CreateChapter } from "../api/ChapterRequest";
 import { Formik } from "formik";
+import React, { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { requestJoinIn } from "../api/ClubsRequest";
+import { Link } from "react-router-dom";
+import { CreateChapter } from "../api/ChapterRequest";
 
 const ProfileHeader = (props) => {
   const initialValues = {
@@ -19,21 +18,31 @@ const ProfileHeader = (props) => {
   const handleShow = () => setShow(true);
   const [inputs, setInputs] = useState({ ...initialValues });
   const { userInfo } = useSelector((state) => state.user);
-
   const handleChange = (e) => {
     e.preventDefault();
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value, type, files } = e.target;
+
+    const inputfiles = type === "file" ? files[0].name : value;
+    setInputs(
+      (prev) => (
+        { ...prev, [e.target.name]: e.target.value },
+        { ...prev, [name]: inputfiles }
+      )
+    );
   };
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // You can directly use the 'values' object that Formik provides.
+      const formData = new FormData();
+      formData.append("coverImage", values.coverImage);
+      formData.append("profileImage", values.profileImage);
       const response = await CreateChapter(values);
       return response;
-      handleClose(); // Close the modal after submitting the form
     } catch (error) {
       console.error(error);
+      throw new error();
     } finally {
-      setSubmitting(false); // Don't forget to set 'setSubmitting' to false after handling the form submission
+      handleClose();
+      setSubmitting(false);
     }
   };
   return (
@@ -49,7 +58,11 @@ const ProfileHeader = (props) => {
           {userInfo.user.isAdmin && (
             <ul className="header-nav list-inline d-flex flex-wrap justify-end p-0 m-0">
               <li>
-                <Button className="rounded" onClick={handleShow}>
+                <Button
+                  className="rounded"
+                  variant="danger"
+                  onClick={handleShow}
+                >
                   <i className="ri-pencil-line"></i>
                 </Button>
               </li>
@@ -105,34 +118,36 @@ const ProfileHeader = (props) => {
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupPassword">
-                  <Form.Label>Image Profile</Form.Label>
+                <Form.Group className="form-group">
+                  <Form.Label>Upload Profile Photo:</Form.Label>
                   <Form.Control
-                    type="file"
-                    placeholder="choose the image of your profile"
-                    name="profileImage"
                     onChange={(event) =>
                       setFieldValue(
                         "profileImage",
                         event.currentTarget.files[0]
                       )
                     }
+                    type="file"
+                    required="required"
+                    name="profileImage"
+                    accept="image/*"
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupPassword">
-                  <Form.Label>Cover Chapter</Form.Label>
+                <Form.Group className="form-group">
+                  <Form.Label>Upload Cover Photo:</Form.Label>
                   <Form.Control
-                    type="file"
-                    placeholder="choose the image of your profile"
-                    name="coverImage"
                     onChange={(event) =>
                       setFieldValue("coverImage", event.currentTarget.files[0])
                     }
+                    type="file"
+                    name="coverImage"
+                    required="required"
+                    accept="image/*"
                   />
                 </Form.Group>
               </Modal.Body>
               <Modal.Footer>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" variant="danger" disabled={isSubmitting}>
                   {isSubmitting ? "Submitting..." : "Create Chapter"}
                 </Button>
               </Modal.Footer>

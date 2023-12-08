@@ -116,7 +116,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </div>
@@ -201,7 +201,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </Card.Body>
@@ -286,7 +286,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </div>
@@ -371,7 +371,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </Card.Body>
@@ -456,7 +456,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </Card.Body>
@@ -541,7 +541,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </Card.Body>
@@ -626,7 +626,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </Card.Body>
@@ -711,7 +711,7 @@ const Pnational = () => {
                     </Link>
                   </div>
                 </div>
-                <button type="submit" className="btn btn-primary d-block w-100">
+                <button type="submit" className="btn btn-danger d-block w-100">
                   Join
                 </button>
               </Card.Body>

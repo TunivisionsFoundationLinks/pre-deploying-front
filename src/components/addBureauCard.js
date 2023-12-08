@@ -1,10 +1,9 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { addBureau } from "../api/ClubsRequest";
-import { useState } from "react";
 import { Flip, toast } from "react-toastify";
+import { addBureau } from "../api/ClubsRequest";
 
 const AddBureauCard = ({ dataMembers }) => {
   const { id } = useParams();
@@ -85,7 +84,9 @@ const AddBureauCard = ({ dataMembers }) => {
   };
   return (
     <div>
-      <Button onClick={handleShow}>choose the new Board</Button>
+      <Button variant="danger" onClick={handleShow}>
+        choose the new Board
+      </Button>
       <Modal
         size="sm"
         centered
@@ -138,7 +139,7 @@ const AddBureauCard = ({ dataMembers }) => {
                 </Form.Group>
               </Modal.Body>
               <Modal.Footer>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button variant="danger" type="submit" disabled={isSubmitting}>
                   {isSubmitting ? "Submitting..." : "Join the Club"}
                 </Button>
               </Modal.Footer>

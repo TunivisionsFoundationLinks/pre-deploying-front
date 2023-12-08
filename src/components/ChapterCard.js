@@ -16,7 +16,11 @@ const ChapterCard = ({
       <div className="top-bg-image">
         <div>
           <img
-            src={"https://tlinkbackendserver.onrender.com/images/" + coverImage}
+            src={
+              coverImage
+                ? `https://tlinkbackendserver.onrender.com/images/${coverImage}`
+                : `https://tlinkbackendserver.onrender.com/images/defaultCover.jpg`
+            }
             className="img-fluid bg-cover w-100"
             style={{ height: "250px" }}
             alt="group-bg"
@@ -27,7 +31,9 @@ const ChapterCard = ({
         <div className="group-icon">
           <img
             src={
-              "https://tlinkbackendserver.onrender.com/images/" + profileImage
+              profileImage
+                ? `https://tlinkbackendserver.onrender.com/images/${profileImage}`
+                : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
             }
             alt="profile-img"
             className="rounded-circle img-fluid avatar-120"
@@ -52,7 +58,7 @@ const ChapterCard = ({
           </ul>
         </div>
 
-        <Link to={`/Chapters/${id}`} className="btn btn-primary d-block w-100">
+        <Link to={`/Chapters/${id}`} className="btn btn-danger d-block w-100">
           Visit
         </Link>
       </Card.Body>

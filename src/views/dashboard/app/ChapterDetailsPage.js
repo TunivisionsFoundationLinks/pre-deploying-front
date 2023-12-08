@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Dropdown,
   Button,
-  Modal,
-  OverlayTrigger,
-  Tooltip,
+  Card,
+  Col,
+  Container,
+  Dropdown,
   Form,
+  Modal,
+  Row,
 } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import CustomToggle from "../../../components/dropdowns";
-import ShareOffcanvas from "../../../components/share-offcanvas";
 
 //image
 
-import user9 from "../../../assets/images/user/1.jpg";
-import img5 from "../../../assets/images/user/1.jpg";
+import { useQuery } from "@tanstack/react-query";
+import { Formik } from "formik";
+import { useSelector } from "react-redux";
+import { getOneChapter } from "../../../api/ChapterRequest";
+import { CreateClub } from "../../../api/ClubsRequest";
+import { FetchOneUser } from "../../../api/UserRequest";
 import small1 from "../../../assets/images/small/07.png";
 import small2 from "../../../assets/images/small/08.png";
 import small3 from "../../../assets/images/small/09.png";
@@ -27,27 +27,13 @@ import small5 from "../../../assets/images/small/11.png";
 import small6 from "../../../assets/images/small/12.png";
 import small7 from "../../../assets/images/small/13.png";
 import small8 from "../../../assets/images/small/14.png";
-import img6 from "../../../assets/images/user/04.jpg";
-import img7 from "../../../assets/images/page-img/52.jpg";
-import img8 from "../../../assets/images/user/04.jpg";
-import img9 from "../../../assets/images/page-img/60.jpg";
-import img10 from "../../../assets/images/user/02.jpg";
-import img11 from "../../../assets/images/user/03.jpg";
-import header from "../../../assets/images/page-img/profile-bg7.jpg";
-import icon1 from "../../../assets/images/icon/01.png";
-import icon2 from "../../../assets/images/icon/02.png";
-import icon3 from "../../../assets/images/icon/03.png";
-import icon4 from "../../../assets/images/icon/04.png";
-import icon5 from "../../../assets/images/icon/05.png";
-import icon6 from "../../../assets/images/icon/06.png";
-import icon7 from "../../../assets/images/icon/07.png";
-import { useQuery } from "@tanstack/react-query";
-import { getOneChapter } from "../../../api/ChapterRequest";
+import {
+  default as img5,
+  default as user9,
+} from "../../../assets/images/user/1.jpg";
+import AddBureauChapterCard from "../../../components/AddBureauChapterCard";
+import CardsBoard from "../../../components/Cards/CardsBoard";
 import ChapterHeader from "../../../components/partials/profile/HeaderChapter";
-import { Formik } from "formik";
-import { CreateClub } from "../../../api/ClubsRequest";
-import { useSelector } from "react-redux";
-import { FetchOneUser } from "../../../api/UserRequest";
 
 const ChapterDetailsPage = () => {
   const [show, setShow] = useState(false);
@@ -64,36 +50,58 @@ const ChapterDetailsPage = () => {
     ChapterId: id,
   };
   const [inputs, setInputs] = useState({ ...initialValues });
-  const {
-    data: Chapter,
-    status,
-    error,
-  } = useQuery({
-    queryKey: ["ChapterProfile", id],
-    queryFn: async () => await getOneChapter(id),
-  });
+
   const { userInfo } = useSelector((state) => state.user);
   const userid = userInfo.user._id;
   const { data: getUser } = useQuery({
     queryKey: ["userdetails", userid],
     queryFn: async () => await FetchOneUser(userid),
   });
+
+  const { data: Chapter } = useQuery({
+    queryKey: ["ChapterProfile", id],
+    queryFn: async () => await getOneChapter(id),
+  });
+  const handleChange = (e) => {
+    e.preventDefault();
+    const { name, value, type, files } = e.target;
+
+    const inputfiles = type === "file" ? files[0].name : value;
+    setInputs(
+      (prev) => (
+        { ...prev, [e.target.name]: e.target.value },
+        { ...prev, [name]: inputfiles }
+      )
+    );
+  };
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+      const formData = new FormData();
+      formData.append("coverImage", values.coverImage);
+      formData.append("profileImage", values.profileImage);
       const response = await CreateClub(values);
 
       handleModelClose();
     } catch (error) {
-      console.error(error);
+      throw new error();
     } finally {
+      handleClose();
       setSubmitting(false);
     }
   };
+  const role = getUser?.role;
+  const Departement = getUser?.Departement;
+  const isAdmin = getUser?.isAdmin;
+  const isChapter = getUser?.isBureau;
 
   return (
     <>
       <ChapterHeader
-        img={Chapter?.otherDetails?.coverImage}
+        img={
+          Chapter?.otherDetails?.coverImage
+            ? Chapter?.otherDetails?.coverImage
+            : `http://localhost:5000/images/defaultCover.jpg`
+        }
         title={Chapter?.otherDetails?.ChapterName}
       />
       <div id="content-page" className="content-page">
@@ -106,14 +114,15 @@ const ChapterDetailsPage = () => {
                     <img
                       className="rounded-circle img-fluid avatar-100"
                       src={
-                        "https://tlinkbackendserver.onrender.com/images/" +
                         Chapter?.otherDetails?.profileImage
+                          ? `http://localhost:5000/images/${Chapter?.otherDetails?.profileImage}`
+                          : `http://localhost:5000/images/defaultProfile.png`
                       }
                       alt=""
                     />
                   </div>
                   <div className="info">
-                    <h4>{Chapter?.otherDetails.ChapterName}</h4>
+                    <h4>{Chapter?.otherDetails?.ChapterName}</h4>
                     <p className="mb-0">
                       <i className="ri-lock-fill pe-2"></i>Only Alumni Chapter .
                       we proud to have{" "}
@@ -154,20 +163,20 @@ const ChapterDetailsPage = () => {
                   </div>
                   <hr />
                   <ul className=" post-opt-block d-flex list-inline m-0 p-0 flex-wrap">
-                    <li className="bg-soft-primary rounded p-2 pointer d-flex align-items-center me-3 mb-md-0 mb-2">
+                    <li className="bg-soft-danger rounded p-2 pointer d-flex align-items-center me-3 mb-md-0 mb-2">
                       <img src={small1} alt="icon" className="img-fluid me-2" />{" "}
                       Photo/Video
                     </li>
-                    <li className="bg-soft-primary rounded p-2 pointer d-flex align-items-center me-3 mb-md-0 mb-2">
+                    <li className="bg-soft-danger rounded p-2 pointer d-flex align-items-center me-3 mb-md-0 mb-2">
                       <img src={small2} alt="icon" className="img-fluid me-2" />{" "}
                       Tag Friend
                     </li>
-                    <li className="bg-soft-primary rounded p-2 pointer d-flex align-items-center me-3">
+                    <li className="bg-soft-danger rounded p-2 pointer d-flex align-items-center me-3">
                       <img src={small3} alt="icon" className="img-fluid me-2" />{" "}
                       Feeling/Activity
                     </li>
                     <li>
-                      <Button variant="soft-primary">
+                      <Button variant="soft-danger">
                         <div className="card-header-toolbar d-flex align-items-center">
                           <Dropdown>
                             <Dropdown.Toggle as="div" className="lh-1">
@@ -228,7 +237,7 @@ const ChapterDetailsPage = () => {
                     <hr />
                     <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small1}
@@ -239,7 +248,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small2}
@@ -250,7 +259,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small3}
@@ -261,7 +270,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small4}
@@ -272,7 +281,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small5}
@@ -283,7 +292,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small6}
@@ -294,7 +303,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small7}
@@ -305,7 +314,7 @@ const ChapterDetailsPage = () => {
                         </div>
                       </Col>
                       <Col md="6" as="li" className="mb-3">
-                        <div className="bg-soft-primary rounded p-2 pointer me-3">
+                        <div className="bg-soft-danger rounded p-2 pointer me-3">
                           <Link to="#"></Link>
                           <img
                             src={small8}
@@ -382,13 +391,13 @@ const ChapterDetailsPage = () => {
                         </div>
                       </div>
                     </div>
-                    <Button variant="primary" className="d-block w-100 mt-3">
+                    <Button variant="danger" className="d-block w-100 mt-3">
                       Post
                     </Button>
                   </Modal.Body>
                 </Modal>
               </Card>
-              <Card>
+              {/* <Card>
                 <Card.Body>
                   <div className="post-item">
                     <div className="user-post-data py-3">
@@ -1174,7 +1183,7 @@ const ChapterDetailsPage = () => {
                     </div>
                   </div>
                 </Card.Body>
-              </Card>
+              </Card> */}
             </Col>
             <Col lg="4">
               <Card>
@@ -1186,18 +1195,6 @@ const ChapterDetailsPage = () => {
                 <Card.Body>
                   <ul className="list-inline p-0 m-0">
                     <Link
-                      to={`/Chapters/${Chapter?.otherDetails?._id}/}ClubsEvent`}
-                    >
-                      <li className="mb-3 d-flex align-items-center">
-                        <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
-                          <i className="material-symbols-outlined">
-                            emoji_events
-                          </i>
-                        </div>
-                        <h6 className="mb-0">Events Club</h6>
-                      </li>
-                    </Link>
-                    <Link
                       to={`/Chapters/${Chapter?.otherDetails?._id}/clubList`}
                     >
                       <li className="mb-3 d-flex align-items-center">
@@ -1206,22 +1203,221 @@ const ChapterDetailsPage = () => {
                         </div>
                         <h6 className="mb-0">Clubs List</h6>
                       </li>
-                      {getUser?.isBureau ||
-                        (getUser?.isAdmin && (
-                          <li>
-                            <button
-                              className="btn btn-primary d-block w-100"
-                              onClick={handleModelShow}
-                            >
-                              <i className="ri-add-line pe-2"></i>Create New
-                              club
-                            </button>
-                          </li>
-                        ))}
                     </Link>
                   </ul>
+                  {isAdmin === true ? (
+                    <ul className="list-inline p-0 m-0 gap-2">
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/}ClubsEvent`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center  justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              emoji_events
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Events Club</h6>
+                        </li>
+                      </Link>
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/create-event`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Create Event National</h6>
+                        </li>
+                      </Link>
+
+                      <li>
+                        <AddBureauChapterCard />
+                      </li>
+                      <li>
+                        <button
+                          className="btn btn-danger d-block w-100"
+                          onClick={handleModelShow}
+                        >
+                          <i className="ri-add-line pe-2"></i>Create New club
+                        </button>
+                      </li>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(role === "Coordinateur") &
+                  (Departement === "Chapter") &
+                  (isChapter === true) &
+                  (isAdmin === false) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/}ClubsEvent`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              emoji_events
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Events Club</h6>
+                        </li>
+                      </Link>
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/create-event`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Create Event National</h6>
+                        </li>
+                      </Link>
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/clubList`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Clubs List</h6>
+                        </li>
+                      </Link>
+                      <li>
+                        <button
+                          className="btn btn-danger d-block w-100"
+                          onClick={handleModelShow}
+                        >
+                          <i className="ri-add-line pe-2"></i>Create New club
+                        </button>
+                      </li>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(role === "Manager" || role === "Assistant") &
+                  (Departement === "Events") &
+                  (isChapter === true) &
+                  (isAdmin === false) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/}ClubsEvent`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              emoji_events
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Events Club</h6>
+                        </li>
+                      </Link>
+
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/create-event`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Create Event National</h6>
+                        </li>
+                      </Link>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(role === "Manager" || role === "Assistant") &
+                  (Departement === "Ressource Humaine") &
+                  (isChapter === true) &
+                  (isAdmin === false) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/clubList`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Clubs List</h6>
+                        </li>
+                      </Link>
+                      <li>
+                        <button
+                          className="btn btn-danger d-block w-100"
+                          onClick={handleModelShow}
+                        >
+                          <i className="ri-add-line pe-2"></i>Create New club
+                        </button>
+                      </li>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(role === "Manager" || role === "Assistant") &
+                  (Departement === "Sponsoring") &
+                  (isChapter === true) &
+                  (isAdmin === false) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/}ClubsEvent`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              emoji_events
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Events Club</h6>
+                        </li>
+                      </Link>
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/clubList`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Clubs List</h6>
+                        </li>
+                      </Link>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
+                  {(role === "Manager" || role === "Assistant") &
+                  (Departement === "Marketing") &
+                  (isChapter === true) &
+                  (isAdmin === false) ? (
+                    <ul className="list-inline p-0 m-0">
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/}ClubsEvent`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center text-secondary justify-content-center me-3">
+                            <i className="material-symbols-outlined">
+                              emoji_events
+                            </i>
+                          </div>
+                          <h6 className="mb-0">Events Club</h6>
+                        </li>
+                      </Link>
+                      <Link
+                        to={`/Chapters/${Chapter?.otherDetails?._id}/clubList`}
+                      >
+                        <li className="mb-3 d-flex align-items-center">
+                          <div className="avatar-40 rounded-circle bg-gray d-flex align-items-center justify-content-center me-3">
+                            <i className="material-symbols-outlined">explore</i>
+                          </div>
+                          <h6 className="mb-0">Clubs List</h6>
+                        </li>
+                      </Link>
+                    </ul>
+                  ) : (
+                    <></>
+                  )}
                 </Card.Body>
               </Card>
+              <CardsBoard Coordination={Chapter?.otherDetails?.Tunimateurs} />
               <Card>
                 <Card.Header className="card-header d-flex justify-content-between">
                   <div className="header-title">
@@ -1282,20 +1478,19 @@ const ChapterDetailsPage = () => {
         </Container>
       </div>
       <Modal
-        size="sm"
+        size="xl"
         centered
         className="fade"
+        style={{ zIndex: "100000" }}
         id="post-modal"
         onHide={handleModelClose}
         show={showModel}
       >
         <Formik initialValues={inputs} onSubmit={handleSubmit}>
-          {({ isSubmitting, handleSubmit, handleChange }) => (
+          {({ isSubmitting, handleSubmit, handleChange, setFieldValue }) => (
             <Form onSubmit={handleSubmit}>
               <Modal.Header className="d-flex justify-content-between">
-                <Modal.Title id="post-modalLabel">
-                  Create new chapter
-                </Modal.Title>
+                <Modal.Title id="post-modalLabel">Create new Club</Modal.Title>
                 <Link to="#" className="lh-1" onClick={handleClose}>
                   <span className="material-symbols-outlined">close</span>
                 </Link>
@@ -1326,6 +1521,33 @@ const ChapterDetailsPage = () => {
                     placeholder="Password"
                     name="password"
                     onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="form-group">
+                  <Form.Label>Upload Profile Photo:</Form.Label>
+                  <Form.Control
+                    onChange={(event) =>
+                      setFieldValue(
+                        "profileImage",
+                        event.currentTarget.files[0]
+                      )
+                    }
+                    type="file"
+                    required="required"
+                    name="profileImage"
+                    accept="image/*"
+                  />
+                </Form.Group>
+                <Form.Group className="form-group">
+                  <Form.Label>Upload Cover Photo:</Form.Label>
+                  <Form.Control
+                    onChange={(event) =>
+                      setFieldValue("coverImage", event.currentTarget.files[0])
+                    }
+                    type="file"
+                    name="coverImage"
+                    required="required"
+                    accept="image/*"
                   />
                 </Form.Group>
               </Modal.Body>

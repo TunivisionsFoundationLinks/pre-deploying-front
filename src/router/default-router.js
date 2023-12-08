@@ -79,6 +79,16 @@ import BlankPage from "../views/dashboard/extrapages/blankpage";
 import Admin from "../views/dashboard/app/admin";
 import DataTableComponents from "../views/dashboard/table/data-table-components";
 import SearchPage from "../views/dashboard/app/SearchPage";
+import Groups from "../views/dashboard/app/groups";
+import ClubDetailsPage from "../views/dashboard/app/ClubDetails";
+import RequestTable from "../views/dashboard/table/Request-table";
+import TunimateurList from "../views/dashboard/table/Tunimateur-table";
+import PrivateRoute from "./PrivetRoute";
+import ClubTableComponents from "../views/dashboard/table/Club-table-Components";
+import ChapterDetailsPage from "../views/dashboard/app/ChapterDetailsPage";
+import EventDetail from "../views/dashboard/app/event-detail";
+import FormEvent from "../views/dashboard/app/FormEvent";
+import ProfileClubEvents from "../views/dashboard/app/activityClub";
 
 export const DefaultRouter = [
   {
@@ -94,6 +104,10 @@ export const DefaultRouter = [
     element: <UserProfile />,
   },
   {
+    path: "/user-profile-edit/:id",
+    element: <UserProfileEdit />,
+  },
+  {
     path: "/rankings",
     element: <DataTableComponents />,
   },
@@ -102,8 +116,32 @@ export const DefaultRouter = [
     element: <UserPrivacySetting />,
   },
   {
+    path: "/Clubs",
+    element: <Groups />,
+  },
+  {
+    path: "/Clubs/:id",
+    element: <ClubDetailsPage />,
+  },
+  {
+    path: "/Clubs/:id/requests-list",
+    element: <RequestTable />,
+  },
+  {
+    path: "/Clubs/:id/tunimateurs",
+    element: <TunimateurList />,
+  },
+  {
     path: "/friend-profile/:id",
     element: <UserProfile />,
+  },
+  {
+    path: "/Chapters/:id",
+    element: <ChapterDetailsPage />,
+  },
+  {
+    path: "/Chapters/:id/clubList",
+    element: <ClubTableComponents />,
   },
   {
     path: "/profile-badges",
@@ -130,246 +168,46 @@ export const DefaultRouter = [
     element: <Todo />,
   },
   {
-    path: "/user-account-setting",
-    element: <UserAccountSetting />,
+    path: "/Chapter/:id",
+    element: <ChapterDetailsPage />,
   },
   {
-    path: "/user-profile-edit",
-    element: <UserProfileEdit />,
+    path: "/Chapters/:id/clubList",
+    element: <ClubTableComponents />,
   },
   {
-    path: "dashboard/icon/fontawesome-5",
-    element: <Fontawesome />,
+    path: "/Clubs",
+    element: <Groups />,
   },
   {
-    path: "dashboard/icon/remixicon",
-    element: <Remixicon />,
+    path: "/Clubs/:id",
+    element: <ClubDetailsPage />,
   },
   {
-    path: "dashboard/icon/lineawesome",
-    element: <Lineawesome />,
+    path: "/Clubs/:id/ActivityClub",
+    element: <ProfileClubEvents />,
   },
   {
-    path: "dashboard/icon/material",
-    element: <Material />,
+    path: "/Clubs/:id/requests-list",
+    element: <RequestTable />,
   },
   {
-    path: "dashboard/form/form-elemen",
-    element: <FormElement />,
+    path: "/Clubs/:id/tunimateurs",
+    element: <TunimateurList />,
   },
   {
-    path: "dashboard/form/form-validation",
-    element: <FormValidation />,
+    path: "/Clubs/:id/create-event",
+    element: <FormEvent />,
   },
+
   {
-    path: "dashboard/form/form-switch",
-    element: <FormSwitch />,
-  },
-  {
-    path: "dashboard/form/form-wizard",
-    element: <FormWizard />,
-  },
-  {
-    path: "dashboard/form/form-wizard-validate",
-    element: <FormWizardValidate />,
-  },
-  {
-    path: "dashboard/form/form-wizard-vertical",
-    element: <FormWizardVertical />,
-  },
-  {
-    path: "dashboard/form/form-checkbox",
-    element: <FormCheckbox />,
-  },
-  {
-    path: "dashboard/form/form-radio",
-    element: <FormRadio />,
-  },
-  {
-    path: "dashboard/blog/blog-grid",
-    element: <BlogGrid />,
-  },
-  {
-    path: "dashboard/blog/blog-list",
-    element: <BlogList />,
-  },
-  {
-    path: "dashboard/blog/blog-detail",
-    element: <BlogDetail />,
-  },
-  {
-    path: "/email",
-    element: <Email />,
-  },
-  {
-    path: "dashboard/Email/email-compose",
-    element: <EmailCompose />,
-  },
-  {
-    path: "dashboard/extrapages/pages-pricing",
-    element: <Pricing />,
-  },
-  {
-    path: "dashboard/extrapages/pages-pricing-one",
-    element: <Pricing1 />,
-  },
-  {
-    path: "dashboard/extrapages/pages-timeline",
-    element: <Timeline />,
-  },
-  {
-    path: "dashboard/extrapages/pages-invoice",
-    element: <Invoice />,
-  },
-  {
-    path: "dashboard/extrapages/pages-faq",
-    element: <Faq />,
-  },
-  {
-    path: "dashboard/extrapages/privacy-policy",
-    element: <PrivacyPolicy />,
-  },
-  {
-    path: "dashboard/extrapages/terms-of-service",
-    element: <TermsofService />,
-  },
-  {
-    path: "dashboard/extrapages/blankpage",
-    element: <BlankPage />,
-  },
-  {
-    path: "/admin",
-    element: <Admin />,
-  },
-  // Ui-kit
-  {
-    path: "dashboard/ui-kit/ui-alerts",
-    element: <UiAlerts />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-badges",
-    element: <UiBadges />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-breadcrumb",
-    element: <UiBreadcrumbs />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-buttons",
-    element: <UiButtons />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-cards",
-    element: <UiCards />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-carousel",
-    element: <UiCarousels />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-color",
-    element: <UiColors />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-dropdowns",
-    element: <UiDropdowns />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-embed-video",
-    element: <UiEmbedVideos />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-grid",
-    element: <UiGrids />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-images",
-    element: <UiImages />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-list-groups",
-    element: <UiListGroups />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-modal",
-    element: <UiModals />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-notifications",
-    element: <UiNotifications />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-offcanvas",
-    element: <UiOffcanvas />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-pagination",
-    element: <UiPaginations />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-popovers",
-    element: <UiPopovers />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-progressbars",
-    element: <UiProgressbars />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-tabs",
-    element: <UiTabs />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-tooltips",
-    element: <UiTooltips />,
-  },
-  {
-    path: "dashboard/ui-kit/ui-typography",
-    element: <UiTypographys />,
-  },
-  // Table
-  {
-    path: "dashboard/table/data-table",
-    element: <DataTable />,
-  },
-  {
-    path: "dashboard/table/tables-basic",
-    element: <TableBasic />,
-  },
-  {
-    path: "dashboard/table/table-editable",
-    element: <TableEditable />,
-  },
-  // Form
-  {
-    path: "dashboard/form/form-element",
-    element: <FormElement />,
-  },
-  {
-    path: "dashboard/form/form-validation",
-    element: <FormValidation />,
-  },
-  {
-    path: "dashboard/form/form-switch",
-    element: <FormSwitch />,
-  },
-  {
-    path: "dashboard/form/form-wizard",
-    element: <FormWizard />,
-  },
-  {
-    path: "dashboard/form/form-wizard-validate",
-    element: <FormWizardValidate />,
-  },
-  {
-    path: "dashboard/form/form-wizard-vertical",
-    element: <FormWizardVertical />,
-  },
-  {
-    path: "dashboard/form/form-checkbox",
-    element: <FormCheckbox />,
-  },
-  {
-    path: "dashboard/form/form-radio",
-    element: <FormRadio />,
+    path: "/activitys/:id",
+    element: <EventDetail />,
   },
 ];
+export const DefaultRouteProtected = DefaultRouter.map((route) => {
+  return {
+    path: route.path,
+    element: <PrivateRoute>{route.element}</PrivateRoute>,
+  };
+});

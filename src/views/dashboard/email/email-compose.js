@@ -72,7 +72,7 @@ const EmailCompose = () => {
                             <Card.Body>
                                 <Row>
                                 <Col md="12" className="mb-3">
-                                    <h5 className="text-primary card-title"><i className="ri-pencil-fill"></i> Compose Message</h5>
+                                    <h5 className="text-danger card-title"><i className="ri-pencil-fill"></i> Compose Message</h5>
                                 </Col>
                                 </Row>
                                 <Form className="email-form">
@@ -103,20 +103,20 @@ const EmailCompose = () => {
                                 <Form.Group className="form-group d-flex justify-content-between align-items-center compose-bottom pt-3 m-0">
                                     <div className="d-flex flex-wrap flex-grow-1 align-items-center">
                                         <div className="send-btn pl-3 mb-2">
-                                            <button type="button" className="btn btn-primary">Send</button>
+                                            <button type="button" className="btn btn-danger">Send</button>
                                         </div>
                                         <div className="send-panel mb-2">
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded" htmlFor="file"> <Form.Control type="file" id="file" style={{display: "none"}}/><Link to="#" className="material-symbols-outlined writ-icon text-primary">attachment</Link> </Form.Label>
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded"> <Link to="#" className="material-symbols-outlined text-primary">place</Link></Form.Label>
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded"> <Link to="#" className="material-symbols-outlined text-primary">add_to_drive</Link>  </Form.Label>
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded"> <Link to="#" className="material-symbols-outlined text-primary">photo_camera</Link>  </Form.Label>
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded"> <Link to="#" className="material-symbols-outlined text-primary">sentiment_satisfied</Link> </Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded" htmlFor="file"> <Form.Control type="file" id="file" style={{display: "none"}}/><Link to="#" className="material-symbols-outlined writ-icon text-danger">attachment</Link> </Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded"> <Link to="#" className="material-symbols-outlined text-danger">place</Link></Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded"> <Link to="#" className="material-symbols-outlined text-danger">add_to_drive</Link>  </Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded"> <Link to="#" className="material-symbols-outlined text-danger">photo_camera</Link>  </Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded"> <Link to="#" className="material-symbols-outlined text-danger">sentiment_satisfied</Link> </Form.Label>
                                         </div>
                                     </div>
                                     <div className="d-flex mr-3 align-items-center">
                                         <div className="send-panel float-right">
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded" ><Link to="#" className="material-symbols-outlined text-primary">settings</Link></Form.Label>
-                                            <Form.Label className="ms-2 mb-0 bg-soft-primary rounded"><Link to="#" className="material-symbols-outlined">delete</Link>  </Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded" ><Link to="#" className="material-symbols-outlined text-danger">settings</Link></Form.Label>
+                                            <Form.Label className="ms-2 mb-0 bg-soft-danger rounded"><Link to="#" className="material-symbols-outlined">delete</Link>  </Form.Label>
                                         </div>
                                     </div>
                                 </Form.Group>

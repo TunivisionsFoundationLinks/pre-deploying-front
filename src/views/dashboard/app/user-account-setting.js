@@ -55,7 +55,7 @@ const UserAccountSetting =() =>{
                                     <Form.Check.Label className="form-check-label" htmlFor="italian">Italian</Form.Check.Label>
                                 </Form.Check>
                             </Form.Group>
-                            <Button type="submit" className="btn btn-primary me-2">Submit</Button>
+                            <Button type="submit" className="btn btn-danger me-2">Submit</Button>
                             <Button type="reset" className="btn bg-soft-danger">Cancel</Button>
                         </Form>
                     </div>
@@ -92,7 +92,7 @@ const UserAccountSetting =() =>{
                             <Form.Label htmlFor="youtube" className="form-label">You Tube:</Form.Label>
                             <Form.Control type="text" className="form-control" id="youtube" defaultValue="www.youtube.com"/>
                             </Form.Group>
-                            <Button type="submit" className="btn btn-primary me-2">Submit</Button>
+                            <Button type="submit" className="btn btn-danger me-2">Submit</Button>
                             <Button type="reset" className="btn bg-soft-danger">Cancel</Button>
                         </Form>
                     </div>

@@ -7,6 +7,7 @@ import img7 from "../../../assets/images/page-img/profile-bg7.jpg";
 import ClubCard from "../../../components/ClubCard";
 import { getClub } from "../../../api/ClubsRequest";
 import { useQuery } from "@tanstack/react-query";
+import RequestHeadersPage from "../../../components/partials/profile/RequestHeadersPage";
 
 const Groups = () => {
   const { data, error, isLoading, isError } = useQuery({
@@ -29,7 +30,7 @@ const Groups = () => {
   };
   return (
     <Container>
-      <ProfileHeader img={img7} title="Club List" />
+      <RequestHeadersPage title="Club List" img={img7} />
       <div id="content-page" className="content-page ">
         <div className="iq-search-bar device-search position-relative mb-3">
           <input

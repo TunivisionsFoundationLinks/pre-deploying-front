@@ -17,6 +17,14 @@ import ComingSoon from "../views/dashboard/extrapages/comingsoon";
 
 export const SimpleRouter = [
   {
+    path: "/",
+    element: <SignIn />,
+  },
+  {
+    path: "/Login",
+    element: <SignIn />,
+  },
+  {
     path: "/confirm-mail",
     element: <ConfirmMail />,
   },
@@ -28,14 +36,7 @@ export const SimpleRouter = [
     path: "/recoverpw",
     element: <Recoverpw />,
   },
-  {
-    path: "/",
-    element: <SignIn />,
-  },
-  {
-    path: "/Login",
-    element: <SignIn />,
-  },
+
   {
     path: "/sign-up",
     element: <SignUp />,

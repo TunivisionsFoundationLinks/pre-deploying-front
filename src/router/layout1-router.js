@@ -38,6 +38,10 @@ export const Layout1Router = [
     element: <Chapters />,
   },
   {
+    path: "/Chapter/:id/create-event",
+    element: <FormEvent />,
+  },
+  {
     path: "/Clubs",
     element: <Groups />,
   },

@@ -1,6 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { Formik } from "formik";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -11,10 +11,9 @@ import {
 } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { requestJoinIn } from "../api/ClubsRequest";
-import { useQuery } from "@tanstack/react-query";
-import { FetchOneUser } from "../api/UserRequest";
 import { Flip, toast } from "react-toastify";
+import { requestJoinIn } from "../api/ClubsRequest";
+import { FetchOneUser } from "../api/UserRequest";
 
 const ClubCard = ({
   id,
@@ -51,7 +50,7 @@ const ClubCard = ({
     },
   ];
   const uuserid = userInfo.user._id;
-  const { data, error, isloading, loading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["userInfo", uuserid],
     queryFn: async () => await FetchOneUser(uuserid),
   });
@@ -89,8 +88,8 @@ const ClubCard = ({
         <img
           src={
             ImageCover
-              ? "https://tlinkbackendserver.onrender.com/images/" + ImageCover
-              : "https://tlinkbackendserver.onrender.com/images/defaultCover.jpg"
+              ? `https://tlinkbackendserver.onrender.com/images/${ImageCover}`
+              : `https://tlinkbackendserver.onrender.com/images/defaultCover.jpg`
           }
           className="img-fluid w-100"
           alt="group-bg"
@@ -101,9 +100,9 @@ const ClubCard = ({
           <img
             src={
               ImageProfile
-                ? "https://tlinkbackendserver.onrender.com/images/" +
+                ? `https://tlinkbackendserver.onrender.com/images/` +
                   ImageProfile
-                : "https://tlinkbackendserver.onrender.com/images/defaultProfile.png"
+                : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
             }
             alt="profile-img"
             className="rounded-circle img-fluid avatar-120"
@@ -139,13 +138,13 @@ const ClubCard = ({
       </Card.Body>
       <Card.Footer>
         {data?.club || data?.request ? (
-          <Link to={`/Clubs/${id}`} className="btn btn-primary d-block w-100">
+          <Link to={`/Clubs/${id}`} className="btn btn-danger d-block w-100">
             Visit
           </Link>
         ) : (
           <div className="d-flex justify-content-evenly w-100">
             <Button
-              className="btn btn-primary d-block w-50"
+              className="btn btn-danger d-block w-50"
               onClick={handleShow}
             >
               request to join

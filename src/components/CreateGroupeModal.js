@@ -51,7 +51,7 @@ const CreateGroupeModal = () => {
               </Form.Group>
             </Modal.Body>
             <Modal.Footer>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" variant="danger" disabled={isSubmitting}>
                 {isSubmitting ? "Submitting..." : "Create Chapter"}
               </Button>
             </Modal.Footer>

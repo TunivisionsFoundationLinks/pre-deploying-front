@@ -1,31 +1,15 @@
 import React, { useState } from "react";
-import { Row, Col, Container, Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Card from "../../components/Card";
-import CustomToggle from "../../components/dropdowns";
+import { Col, Container, Row } from "react-bootstrap";
 
 //image
-import user01 from "../../assets/images/user/01.jpg";
-import user2 from "../../assets/images/user/02.jpg";
 
-import s1 from "../../assets/images/page-img/s1.jpg";
-import s2 from "../../assets/images/page-img/s2.jpg";
-import s3 from "../../assets/images/page-img/s3.jpg";
-import s4 from "../../assets/images/page-img/s4.jpg";
-import s5 from "../../assets/images/page-img/s5.jpg";
-
-import img42 from "../../assets/images/page-img/42.png";
-
-import img9 from "../../assets/images/small/img-1.jpg";
-import img10 from "../../assets/images/small/img-2.jpg";
-import { useSelector } from "react-redux";
-import PostForm from "../../components/Posts/PostForm";
-import PostDetailsCard from "../../components/Posts/PostDetailsCard";
 import { useQuery } from "@tanstack/react-query";
-import { getAllPostes } from "../../api/PostRequest";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getAllPostes } from "../../api/PostRequest";
 import { FetchOneUser } from "../../api/UserRequest";
-import { getOneClub } from "../../api/ClubsRequest";
+import PostDetailsCard from "../../components/Posts/PostDetailsCard";
+import PostForm from "../../components/Posts/PostForm";
 
 const Index = () => {
   const { data } = useQuery({
@@ -49,16 +33,18 @@ const Index = () => {
     <div id="content-page" className="content-page">
       <Container>
         <Row>
-          <Col lg={8} className="m-0 p-0">
+          {/* <Col lg={8} className="m-0 p-0"> */}
+          <Col className="m-0 p-0">
             <Col sm={12}>
               <PostForm />
             </Col>
             {Posters &&
               Posters?.filter((post) =>
-                userAuth?.following?.includes(post?.createBy)
+                userAuth?.following?.includes(post?.createBy || userAuth._id)
               ).map((post) => {
                 return (
-                  <Col sm={12}>
+                  // <Col sm={12} key={post._id}>
+                  <Col key={post._id}>
                     <PostDetailsCard
                       createBy={post.createBy}
                       Disc={post.desc}
@@ -68,7 +54,7 @@ const Index = () => {
                 );
               })}
           </Col>
-          <Col lg={4}>
+          {/* <Col lg={4}>
             <Card>
               <div className="card-header d-flex justify-content-between">
                 <div className="header-title">
@@ -118,7 +104,7 @@ const Index = () => {
                     </div>
                   </li>
                 </ul>
-                <Link to="#" className="btn btn-primary d-block mt-3">
+                <Link to="#" className="btn btn-danger d-block mt-3">
                   See All
                 </Link>
               </Card.Body>
@@ -306,7 +292,7 @@ const Index = () => {
                 </ul>
               </Card.Body>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </div>
