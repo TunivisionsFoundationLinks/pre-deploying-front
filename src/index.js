@@ -14,24 +14,10 @@ import { store } from "./store";
 
 import { IndexRouters } from "./router";
 import { SimpleRouter } from "./router/simple-router";
-import { ChatRouter } from "./router/chat-router";
-import { AdminRouteProtected } from "./router/admin-router";
-import { ChapterRouteProtected } from "./router/Chapter-route";
-import { DefaultRouteProtected } from "./router/default-router";
 
-const router = createBrowserRouter(
-  [
-    ...IndexRouters,
-    ...ChatRouter,
-    ...ChapterRouteProtected,
-    ...DefaultRouteProtected,
-    ...AdminRouteProtected,
-    ...SimpleRouter,
-  ],
-  {
-    basename: process.env.PUBLIC_URL,
-  }
-);
+const router = createBrowserRouter([...SimpleRouter, ...IndexRouters], {
+  basename: process.env.PUBLIC_URL,
+});
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import * as AuthApi from "../api/AuthRequest";
 import { Flip, toast } from "react-toastify";
+import * as AuthApi from "../api/AuthRequest";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -41,7 +41,7 @@ export const login = createAsyncThunk(
     try {
       const res = await AuthApi.login(FormData.inputs);
 
-      FormData.history("/");
+      FormData.history("/home");
       toast.success(
         `Welecome ${res.data.user.firstname} ${res.data.user.lastname}`,
         {

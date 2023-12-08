@@ -55,7 +55,7 @@ const VerticalNav = React.memo(() => {
   return (
     <React.Fragment>
       <Accordion as="ul" className="navbar-nav iq-main-menu" id="sidebar-menu">
-        {userInfo.user.isAdmin && (
+        {userInfo?.user?.isAdmin && (
           <>
             <li className="nav-item static-item">
               <Link

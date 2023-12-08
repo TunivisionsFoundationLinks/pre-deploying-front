@@ -503,8 +503,8 @@ const Header = () => {
                 >
                   <Image
                     src={
-                      userInfo.user.profilePicture
-                        ? `https://tlinkbackendserver.onrender.com/images/${userInfo.user.profilePicture}`
+                      userInfo?.user?.profilePicture
+                        ? `https://tlinkbackendserver.onrender.com/images/${userInfo?.user?.profilePicture}`
                         : `https://tlinkbackendserver.onrender.com/images/defaultProfile.png`
                     }
                     className="img-fluid rounded-circle me-3"
@@ -513,7 +513,9 @@ const Header = () => {
                   />
                   <div className="caption d-none d-lg-block">
                     <h6 className="mb-0 line-height">
-                      {userInfo.user.firstname + " " + userInfo.user.lastname}
+                      {userInfo?.user?.firstname +
+                        " " +
+                        userInfo?.user?.lastname}
                     </h6>
                   </div>
                 </Dropdown.Toggle>
@@ -523,9 +525,9 @@ const Header = () => {
                       <div className="header-title">
                         <h5 className="mb-0 ">
                           Hello
-                          {userInfo.user.firstname +
+                          {userInfo?.user?.firstname +
                             " " +
-                            userInfo.user.lastname}
+                            userInfo?.user?.lastname}
                         </h5>
                       </div>
                     </Card.Header>
@@ -536,7 +538,7 @@ const Header = () => {
                         </span>
                         <div className="ms-3">
                           <Link
-                            to={`/profile/${userInfo.user._id}`}
+                            to={`/profile/${userInfo?.user?._id}`}
                             className="mb-0 h6"
                           >
                             My Profile
