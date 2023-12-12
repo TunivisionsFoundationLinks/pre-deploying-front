@@ -27,7 +27,8 @@ export const register = async (FormData) => {
 
     return response;
   } catch (error) {
-    toast.error(error.message, {
+    console.log(error);
+    toast.error(error, {
       position: "bottom-center",
       autoClose: 2000,
       hideProgressBar: false,

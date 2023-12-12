@@ -294,6 +294,7 @@ const SignUp = () => {
                               </Form.Select>
                             </Form.Group>
                             <Button
+                              variant="danger"
                               className="btn-danger float-end"
                               data-enchanter="next"
                               onClick={() => AccountShow("Account")}
